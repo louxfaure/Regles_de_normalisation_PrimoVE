@@ -1,0 +1,21 @@
+rule "Primo VE Display - Dissertation"
+	when
+		MARC is "328"."a"
+	then
+		create pnx."display"."dissertation" with MARC "328"."a"
+end
+
+rule "Primo VE Display - Dissertation 328 ind2=1" 
+	when
+		MARC."328" has any "z,b,c,e,d,t"
+	then
+		
+		set TEMP"1" to MARC "328" sub without sort "z,b,c,e,d,t" wrap subfields
+		replace wrapping delimiters (TEMP"1","z",""," : ")
+		replace wrapping delimiters (TEMP"1","b",""," : ")
+		replace wrapping delimiters (TEMP"1","c",""," : ")
+		replace wrapping delimiters (TEMP"1","e",""," : ")
+		replace wrapping delimiters (TEMP"1","d","","")
+		replace wrapping delimiters (TEMP"1","t"," (",")")
+		create pnx."display"."dissertation" with TEMP"1"  
+end

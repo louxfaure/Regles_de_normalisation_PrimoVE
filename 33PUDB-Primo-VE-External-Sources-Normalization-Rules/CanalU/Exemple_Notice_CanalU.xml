@@ -1,0 +1,40 @@
+<record>
+    <header>
+        <identifier>DOI:10.60527/edp6-bt97</identifier>
+        <datestamp>2018-11-20T12:00:00+00:00</datestamp>
+        <setSpec>chaine:601</setSpec>
+        <setSpec>discipline:987:1147:1763</setSpec>
+    </header>
+    <metadata>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+            <dc:title>"JIPES 2018"_Restitution des ateliers thématiques des Journées</dc:title>
+            <dc:identifier>DOI:10.60527/edp6-bt97</dc:identifier>
+            <dc:identifier>https://www.canal-u.tv/99713</dc:identifier>
+            <dc:source>https://doi.org/10.60527/edp6-bt97</dc:source>
+            <dc:source>https://www.canal-u.tv/chaines/dgesip/embed/99713</dc:source>
+            <dc:creator>MESR - formation et pédagogie</dc:creator>
+            <dc:description>La 3ème édition des Journées nationales de l'Innovation Pédagogique dans
+                l'Enseignement Supérieur ont eu lieu les 20 et 21 novembre 2018 au Centre des
+                Congrès de la Cité des Sciences et de l'Industrie à Paris - #JIPES</dc:description>
+            <dc:date>2018-11-20T12:00:00+00:00</dc:date>
+            <dc:subject>Enseignement supérieur</dc:subject>
+            <dc:publisher>MESR - formation et pédagogie</dc:publisher>
+            <dc:contributor>MESR - formation et pédagogie</dc:contributor>
+            <dc:type>MovingImage</dc:type>
+            <dc:format>video/mp4</dc:format>
+            <dc:language>fr</dc:language>
+            <dc:rights>Droit commun de la propriété intellectuelle</dc:rights>
+            <dc:bibliographicCitation>DGESIP, (2018, 20 novembre), "JIPES 2018"_Restitution des
+                ateliers thématiques des Journées, [Vidéo], Canal-U,
+                https://doi.org/10.60527/edp6-bt97, (Consultée le 10 mars 2025)</dc:bibliographicCitation>
+            <dc:created>2018-11-20T12:00:00+00:00</dc:created>
+            <dc:educationLevel>Tous publics</dc:educationLevel>
+            <dc:extent>PT0H46M15S</dc:extent>
+            <dc:issued>2018-11-20T11:00:00+00:00</dc:issued>
+            <dc:modified>2024-03-06T17:47:35+00:00</dc:modified>
+        </oai_dc:dc>
+    </metadata>
+</record>

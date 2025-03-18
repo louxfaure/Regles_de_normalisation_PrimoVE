@@ -1,0 +1,68 @@
+rule "Primo VE Display - Identifier 013"
+	when
+		MARC is "013"."a"
+	then
+		set TEMP"1" to MARC "013"."a"
+		add prefix (TEMP"1","$$CISMN$$V")
+		create pnx."display"."identifier" with TEMP"1"
+end
+
+rule "Primo VE Display - Identifier 071"
+	when
+		MARC is "071"."a"
+	then
+		set TEMP"1" to MARC "071"."a"
+		add prefix (TEMP"1","$$CPUBNUM$$V")
+		create pnx."display"."identifier" with TEMP"1"
+end
+
+
+rule "Primo VE Display - Identifier 010"
+	when
+		MARC is "010"."a"
+	then
+		set TEMP"1" to MARC."010" sub without sort "a"
+		add prefix (TEMP"1","$$CISBN$$V")
+		create pnx."display"."identifier" with TEMP"1"
+end
+
+rule "Primo VE Display - Identifier 011"
+	when
+		MARC is "011"."a"
+	then
+		set TEMP"1" to MARC."011" sub without sort "a"
+		add prefix (TEMP"1","$$CISSN$$V")
+		create pnx."display"."identifier" with TEMP"1"
+end
+
+rule "Primo VE Display - Identifier 035 PPN"
+	when
+		MARC is "035"."a" AND MARC."035"."a" match "^\\(PPN\\).*"
+	then
+		set TEMP"1" to MARC."035" sub without sort "a"
+        replace string by string (TEMP"1","\\(PPN\\)","")
+		add prefix (TEMP"1","<a href='https://www.sudoc.fr/")
+        add suffix (TEMP"1","'' target='_blank'>")
+        set TEMP"2" to MARC."035" sub without sort "a"
+        replace string by string (TEMP"2","\\(PPN\\)","")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        add suffix (TEMP"1","</a>")
+        add prefix (TEMP"1","$$CPPN$$V")
+		create pnx."display"."identifier" with TEMP"1"
+end
+
+rule 'Primo VE Display - Identifier 029 NNT'
+	when
+		MARC is "029"."b"
+	then
+		set TEMP"1" to MARC."029" sub without sort "b"
+		replace string by string (TEMP"1","NNT","")
+		add prefix (TEMP"1","<a href='https://www.theses.fr/")
+		add suffix (TEMP"1","' target='_blank'>")
+		set TEMP"2" to MARC."029" sub without sort "b"
+		replace string by string (TEMP"2","NNT","")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        add suffix (TEMP"1","</a>")
+        add prefix (TEMP"1","$$CNNT$$V")
+		create pnx."display"."identifier" with TEMP"1"
+end

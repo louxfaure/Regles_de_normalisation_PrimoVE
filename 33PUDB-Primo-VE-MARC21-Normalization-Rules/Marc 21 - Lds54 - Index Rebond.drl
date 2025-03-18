@@ -1,0 +1,73 @@
+rule "Primo VE - Lds54"
+	when
+		MARC is "760"."t"
+	then
+		set TEMP"1" to MARC."760"."t"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."lds54" with TEMP"1"
+end
+
+rule "Primo VE - Lds54 PPN Collection"
+    when
+        MARC is "760"."w"
+then
+        set TEMP"1" to MARC."760"."w"
+		remove string (TEMP"1","^001\\(PPN\\)")
+		create pnx."display"."lds54" with TEMP"1"
+end
+
+rule "Primo VE - Lds54 ISSN Collection"
+	when
+		MARC is "760"."x"
+then
+		create pnx."display"."lds54" with MARC "760"."x"
+end
+
+rule "Primo VE - Lds54 ISSN notice"
+	when
+		MARC is "022"."a"
+then
+		create pnx."display"."lds54" with MARC "022"."a"
+end
+
+
+rule "Primo VE - Lds54 ISBN notice"
+	when
+		MARC is "020"."a"
+then
+		create pnx."display"."lds54" with MARC "020"."a"
+end
+
+rule "Primo VE - Lds54 PPN notice"
+	when
+		MARC is "035"."a" AND MARC."035"."a" match "^\\(PPN\\).*"
+	then
+		set TEMP"1" to MARC."035" sub without sort "a"
+        replace string by string (TEMP"1","\\(PPN\\)","")
+		create pnx."display"."lds54" with TEMP"1"
+end
+
+rule "Primo VE - Lds54 titre notice"
+    when
+		MARC is "245"."a"
+	then
+		set TEMP"1" to MARC."245"."a"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."lds54" with TEMP"1"
+end
+
+rule "Primo VE - Lds54 ISBN autre support"
+	when
+		MARC is "776"."z"
+then
+		create pnx."display"."lds54" with MARC "776"."z"
+end
+
+rule "Primo VE - Lds54 ISSN autre support"
+	when
+		MARC is "776"."x"
+then
+		create pnx."display"."lds54" with MARC "776"."x"
+end

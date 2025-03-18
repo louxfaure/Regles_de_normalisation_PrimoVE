@@ -1,0 +1,1 @@
+# Règles de normalisation Primo VE pour le réseau des bibliothèques bordelaises

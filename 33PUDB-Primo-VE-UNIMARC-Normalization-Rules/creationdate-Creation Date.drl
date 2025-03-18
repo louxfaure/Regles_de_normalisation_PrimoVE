@@ -1,0 +1,54 @@
+rule "Primo VE Display - Date Of Publication 100 08 = a"
+priority 90
+//ressource continue en cours Publié depuis Date1 
+	when
+		MARC.data is "100"
+        AND MARC."100"."a" match "^.{8}a.*"
+	then
+	    set TEMP"1" to MARC.data."100".Date1
+		replace spaces (TEMP"1","X")
+        add prefix (TEMP"1","Depuis ")
+		set pnx."display"."creationdate" to TEMP"1"
+end
+
+rule "Primo VE Display - Date Of Publication 100 08 = [bc]"
+priority 80
+//ressource continue morte ou ressource continue dont la situation est inconnue
+	when
+		MARC.data is "100"
+        AND MARC."100"."a" match "^.{8}[bc].*"
+	then
+	    set TEMP"1" to MARC.data."100".Date1
+        replace spaces (TEMP"1","X")
+        add prefix (TEMP"1","Depuis ")
+        set TEMP"2" to MARC.data."100".Date2
+        replace spaces (TEMP"2","X")
+        add prefix (TEMP"2","jusqu'à ")
+        concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+
+		set pnx."display"."creationdate" to TEMP"1"
+end
+
+rule "Primo VE Display - Date Of Publication 100 08 monographie"
+priority 70
+// Monographie non numérisée : Date1 de la zone 100
+	when
+		MARC.data is "100"
+        AND MARC."100"."a" match "^.{8}[dfh-j].*"
+	then
+        set TEMP"1" to MARC.data."100".Date1
+        replace spaces (TEMP"1","X")
+		set pnx."display"."creationdate" to TEMP"1"
+end
+
+rule "Primo VE Display - Date Of Publication 100 08 = [eg]"
+priority 60
+//Monographie Reproduction ou publication sur plusieurs années : Date2 de la zone 100
+	when
+		MARC.data is "100"
+        AND MARC."100"."a" match "^.{8}[eg].*"
+	then
+        set TEMP"1" to MARC.data."100".Date2
+        replace spaces (TEMP"1","X")
+		set pnx."display"."creationdate" to TEMP"1"
+end

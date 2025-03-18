@@ -1,0 +1,167 @@
+rule "Primo VE Display - addtitle 510"
+	when
+		MARC."510" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."510" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end
+
+rule "Primo VE Display - addtitle 512"
+	when
+		MARC."512" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."512" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end
+
+rule "Primo VE Display - addtitle 513"
+	when
+		MARC."513" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."513" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end
+
+rule "Primo VE Display - addtitle 514"
+	when
+		MARC."514" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."514" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end
+
+rule "Primo VE Display - addtitle 515"
+	when
+		MARC."515" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."515" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end
+
+rule "Primo VE Display - addtitle 516"
+	when
+		MARC."516" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."516" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end
+
+rule "Primo VE Display - addtitle 517"
+	when
+		MARC."517" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."517" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end
+
+rule "Primo VE Display - addtitle 520"
+	when
+		MARC."520" has any "a,e,h,i,n,z"
+	then
+		set TEMP"1" to  MARC."520" sub without sort "a,e,h,i,n,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a"," ; ","")
+	    replace wrapping delimiters (TEMP"1","e"," : ","")
+    	replace wrapping delimiters (TEMP"1","h",". ","")
+      	replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","n"," (",") ")
+		replace wrapping delimiters (TEMP"1","z"," (",") ")
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."display"."title" with TEMP"1"
+end

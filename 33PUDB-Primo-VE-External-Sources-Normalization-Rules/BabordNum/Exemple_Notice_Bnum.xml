@@ -1,0 +1,41 @@
+<record>
+    <header>
+        <identifier>oai:www.babordnum.fr:1054</identifier>
+        <datestamp>2025-01-08T14:56:35Z</datestamp>
+        <setSpec>4</setSpec>
+    </header>
+    <metadata>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+            <dc:title>Flore agenaise ou description méthodique des plantes observées dans le département de Lot-et-Garonne et dans quelques parties des départemens voisins Par M. de Saint-Amans. [Introduction et tables]</dc:title>
+            <dc:creator>Saint-Amans, Jean-Florimond Boudon de (1748-1831). Auteur</dc:creator>
+            <dc:creator>Société d'agriculture, sciences et arts d'Agen. Éditeur scientifique</dc:creator>
+            <dc:subject>Plantes -- France -- Lot-et-Garonne (France)</dc:subject>
+            <dc:subject>Plantes -- Classification</dc:subject>
+            <dc:description>Autre(s) titre(s) : Flore agenaise publiée par la société d'agriculture, sciences et d'arts d'Agen. Flore agenaise exposition des genres</dc:description>
+            <dc:description>Contient : - Préface - Table des principales abréviations des noms des auteurs cités dans la Flore agenaise, et de leurs ouvrages - Signes - Page d'avant-titre. Flore agenaise. Exposition des genres [la suite a été numérisée à partir de l'exemplaire FR 32073 auquel il manquait la préface]</dc:description>
+            <dc:description>- Cachet au titre : « A L. Motelay A Bordeaux ». Ex-dono vignette gr. au contre-plat : « Donation Motelay ». Cachet au titre : "Bibliothèque de l'Université Bordeaux", numéro d'inventaire D. 323. Ancienne cote de la Bibliothèque de l'Université [de] Bordeaux : FR 60446 [cote FRA 37]</dc:description>
+            <dc:publisher>Noubel (Agen)</dc:publisher>
+            <dc:contributor>Gaulon, Cyprien (1777-1858). Lithographe</dc:contributor>
+            <dc:contributor>Chaubard, Louis-Athanase (1781-1854). Lithographe</dc:contributor>
+            <dc:contributor>Motelay, Léonce (1830-1917). Donateur</dc:contributor>
+            <dc:date>1821</dc:date>
+            <dc:type>Text</dc:type>
+            <dc:format>18 p.</dc:format>
+            <dc:identifier>Université de Bordeaux. Direction de la Documentation. Bibliothèque Sciences et Techniques. Cote : FRA 37</dc:identifier>
+            <dc:identifier>https://www.babordnum.fr/items/show/1054</dc:identifier>
+            <dc:source>PPN <span>
+                <span>
+                    <a class="link_gen" href="http://www.sudoc.fr/019146264" target="_blank">019146264</a>
+                </span>
+            </span>
+        </dc:source>
+        <dc:source>Université de Bordeaux. Direction de la Documentation. Bibliothèque Sciences et Techniques. Cote : FRA 37</dc:source>
+        <dc:language>fre</dc:language>
+        <dc:relation>vignette : http://www.babordnum.fr/files/square_thumbnails/c916b99a436fc7d36dc61cde91e0c630.jpg</dc:relation>
+        <dc:relation>https://www.babordnum.fr/files/thumbnails/c916b99a436fc7d36dc61cde91e0c630.jpg</dc:relation>
+        <dc:rights>http://creativecommons.org/publicdomain/mark/1.0/</dc:rights>
+    </oai_dc:dc>
+</metadata>
+</record>

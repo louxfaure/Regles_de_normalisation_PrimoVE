@@ -1,0 +1,8 @@
+rule "Primo VE - Lds01"
+// Brief result ligne 2 : Auteur version ISBD
+	when
+		MARC."200" has any "f,g"
+	then
+		set TEMP"1" to MARC."200" sub without sorting "f,g" delimited by " ; "
+		create pnx."display"."lds01" with TEMP"1"
+end

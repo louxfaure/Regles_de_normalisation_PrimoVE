@@ -1,0 +1,187 @@
+rule "Types de docs à books"
+when
+    true
+then  
+set "books" in "discovery"."resourceType"
+end
+
+rule "Affichage Auteurs Brief Display"
+when
+    exist "//*[local-name()='creator']"
+then
+    copy "//*[local-name()='creator']/text()" to "discovery"."local1"
+end
+
+rule "Affichage Editeur Brief Display"
+when
+    exist "//*[local-name()='publisher']"
+then
+    set TEMP"1" to xpath "//*[local-name()='publisher']/text()"
+    add suffix (TEMP"1"," : ")
+    set TEMP"1" in "discovery"."local2"
+end
+
+rule "Copy title"
+when
+    exist "//*[local-name()='title']"
+then
+    copy "//*[local-name()='title']/text()" to "dc"."title"
+end
+
+// rule "Copy creator "
+// Tentative pour nettoyer le rebond de la fonction et la date
+// NE MARCHE PAS
+// when
+//     exist "//*[local-name()='creator']"
+// then
+//     set TEMP"1" to xpath "//*[local-name()='creator']/text()"
+//     set TEMP"2" to xpath "//*[local-name()='creator']/text()"
+//     remove substring using regex (TEMP"2","\\..*$")
+//     //replace string by string (TEMP"2","\..*$","")
+//     add prefix (TEMP"2","$Q")
+//     add prefix (TEMP"2","$")
+//     concatenate with delimiter (TEMP"1",TEMP"2","")
+//     set TEMP"1" in "dc"."creator"
+// end
+
+rule "Copy creator"
+when
+    exist "//*[local-name()='creator']"
+then
+    copy "//*[local-name()='creator']/text()" to "dc"."creator"
+end
+
+rule "Copy contributor"
+when
+    exist "//*[local-name()='contributor']"
+then
+    copy "//*[local-name()='contributor']/text()" to "dc"."contributor"
+end
+
+rule "Copy description"
+when
+    exist "//*[local-name()='description']"
+then
+    copy "//*[local-name()='description']/text()" to "dc"."description"
+end
+
+rule "Copy publisher"
+when
+    exist "//*[local-name()='publisher']"
+then
+    copy "//*[local-name()='publisher']/text()" to "dc"."publisher"
+end
+
+rule "Copy subject that not starts with /dk/"
+when
+    exist "//*[local-name()='subject']"
+then
+    copy "//*[local-name()='subject']/text()" to "dc"."subject"
+end
+
+rule "Copy date"
+when
+    exist "//*[local-name()='date']"
+then
+    copy "//*[local-name()='date']/text()" to "dc"."date"
+end
+
+rule "Copy language"
+when
+    exist "//*[local-name()='language']"
+then
+    copy "//*[local-name()='language']/text()" to "dc"."language"
+end
+
+
+rule "Copy coverage"
+when
+    exist "//*[local-name()='coverage']"
+then
+    copy "//*[local-name()='coverage']/text()" to "dc"."coverage"
+end
+
+rule "Copy relation"
+when
+    exist "//*[local-name()='relation']"
+then
+    copy "//*[local-name()='relation'][(starts-with(.,'https'))]/text()" to "dc"."relation"
+end
+
+rule "Copy rights"
+when
+    exist "//*[local-name()='rights']"
+then
+    copy "//*[local-name()='rights']/text()" to "dc"."rights"
+end
+
+rule "Copy source to identifier PPN sans balise html"
+when
+    exist "//*[local-name()='source']//*[local-name()='a']"
+then
+    set TEMP"1" to xpath "//*[local-name()='source'][(starts-with(.,'PPN'))]//*[local-name()='a']/text()"
+    // add prefix (TEMP"1","$V")
+    // add prefix (TEMP"1","$")
+    // add prefix (TEMP"1","$CPPN")
+    // add prefix (TEMP"1","$")
+    set TEMP"1" in "dc"."identifier"
+end
+
+rule "Copy source to identifier PPN avec balises html"
+when
+    exist "//*[local-name()='source']"
+then
+    set TEMP"1" to xpath "//*[local-name()='source'][(starts-with(.,'PPN'))]/text()"
+    // add prefix (TEMP"1","$V")
+    // add prefix (TEMP"1","$")
+    // add prefix (TEMP"1","$CPPN")
+    // add prefix (TEMP"1","$")
+    set TEMP"1" in "dc"."identifier"
+end
+
+rule "Copy identifier Cote du document original "
+when
+    exist "//*[local-name()='identifier']"
+then
+    set TEMP"1" to xpath "//*[local-name()='identifier'][(starts-with(.,'Université'))]/text()"
+    // add prefix (TEMP"1","$V")
+    // add prefix (TEMP"1","$")
+    // add prefix (TEMP"1","$CBNUM_COTE")
+    // add prefix (TEMP"1","$")
+    set TEMP"1" in "dc"."identifier"
+end
+
+
+rule "Copy identifier URI "
+when
+    exist "//*[local-name()='identifier']"
+then
+    set TEMP"1" to xpath "//*[local-name()='identifier'][(starts-with(.,'http'))]/text()"
+    // add prefix (TEMP"1","$V")
+    // add prefix (TEMP"1","$")
+    // add prefix (TEMP"1","$CURI")
+    // add prefix (TEMP"1","$")
+    set TEMP"1" in "dc"."identifier"
+end
+
+// rule "Copy identifier from metadata exclude scopus"
+// when
+//  exist "//metadata//*[local-name()='identifier']"
+// then
+//     copy "//metadata//*[local-name()='identifier'][not(starts-with(text(),'http://www.scopus'))]" to "dc"."identifier"
+// end
+
+// rule "Copy identifier to local field 1"
+// when
+//  exist "//metadata//*[local-name()='identifier']"
+// then
+    // copy "//metadata//*[local-name()='identifier'][not(starts-with(text(),'http://www.scopus'))]" to "discovery"."local1"
+// end
+
+
+// rule "Copy description"
+// when
+//  exist "//*[local-name()='source']"
+// then
+//     copy "//*[local-name()='source'][(text()!='<') and (text()!='>')]" to "dc"."description"
+// end
