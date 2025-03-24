@@ -1,0 +1,737 @@
+rule "Primo VE Display - Ispartof 461"
+		when
+          MARC."461" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+          AND MARC."461"."5" match ".*"
+	then
+		set TEMP"1" to MARC "461" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."461" sub without sort "1"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+        remove string (TEMP"2","^001\\(PPN\\)")        
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 461 CARTE"
+		when
+          MARC."461" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC.control."LDR"(6-7) matches "e|f"
+		  AND MARC."461"."1" match ".*"
+		  AND NOT MARC."461"."5" match ".*"
+	then
+		set TEMP"1" to MARC "461" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."461" sub without sort "1"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		remove string (TEMP"2","^001\\(PPN\\)")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 461 ISSN"
+		when
+          MARC."461" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC."461"."x" match ".*"
+		  AND NOT MARC."461"."5" match ".*"
+                  AND NOT MARC.control."LDR"(6-7) matches "e|f"
+	then
+		set TEMP"1" to MARC "461" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."461" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 461 ISBN"
+		when
+          MARC."461" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC."461"."y" match ".*"
+		  AND NOT MARC."461"."x" match ".*"
+		  AND NOT MARC.control."LDR"(6-7) matches "e|f"
+		  AND NOT MARC."461"."5" match ".*"
+	then
+		set TEMP"1" to MARC "461" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."461" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 461 TITRE"
+		when
+          MARC."461" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC."461"."t" match ".*"
+		  AND NOT MARC."461"."y" match ".*"
+		  AND NOT MARC."461"."x" match ".*"
+		  AND NOT MARC.control."LDR"(6-7) matches "e|f"
+		  AND NOT MARC."461"."5" match ".*"
+	then
+		set TEMP"1" to MARC "461" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."461" sub without sort "t,o"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+		add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 463"
+		when
+          MARC."463" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+          AND MARC."463"."5" match ".*"
+	then
+		set TEMP"1" to MARC "463" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."463" sub without sort "1"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		remove string (TEMP"2","^001\\(PPN\\)")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 463 CARTE"
+		when
+          MARC."463" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC.control."LDR"(6-7) matches "e|f"
+		  AND MARC."463"."1" match ".*"
+		  AND NOT MARC."463"."5" match ".*"
+	then
+		set TEMP"1" to MARC "463" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."463" sub without sort "1"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		remove string (TEMP"2","^001\\(PPN\\)")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 463 ISSN"
+		when
+          MARC."463" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC."463"."x" match ".*"
+		   AND NOT MARC.control."LDR"(6-7) matches "e|f"
+		  AND NOT MARC."463"."5" match ".*"
+	then
+		set TEMP"1" to MARC "463" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."463" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 463 ISBN"
+		when
+          MARC."463" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC."463"."y" match ".*"
+		  AND NOT MARC."463"."x" match ".*"
+		  AND NOT MARC.control."LDR"(6-7) matches "e|f"
+		  AND NOT MARC."463"."5" match ".*"
+	then
+		set TEMP"1" to MARC "463" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."463" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 463 TITRE"
+		when
+          MARC."463" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		  AND MARC."463"."t" match ".*"
+		  AND NOT MARC."463"."y" match ".*"
+		  AND NOT MARC."463"."x" match ".*"
+		  AND NOT MARC.control."LDR"(6-7) matches "e|f"
+		  AND NOT MARC."463"."5" match ".*"
+	then
+		set TEMP"1" to MARC "463" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."463" sub without sort "t,o"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        remove substring using regex (TEMP"1","; *no *: *[30U][SB].{9}")
+        remove substring using regex (TEMP"1","yr *: *")
+        replace string by string (TEMP"1","no *: *","n° ")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+		add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 412"
+	when
+        MARC."412" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."412"."x" match ".*"
+	then
+		set TEMP"1" to MARC "412" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."412" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 412 ISBN"
+	when
+        MARC."412" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."412"."y" match ".*"
+		AND NOT MARC."412"."x" match ".*"
+	then
+		set TEMP"1" to MARC "412" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."412" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 412 TITRE"
+	when
+        MARC."412" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."412"."t" match ".*"
+		AND NOT MARC."412"."y" match ".*"
+		AND NOT MARC."412"."x" match ".*"
+	then
+		set TEMP"1" to MARC "412" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."412" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 413"
+	when
+        MARC."413" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."413"."x" match ".*"
+	then
+		set TEMP"1" to MARC "413" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."413" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 413 ISBN"
+	when
+        MARC."413" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."413"."y" match ".*"
+		AND NOT MARC."413"."x" match ".*"
+	then
+		set TEMP"1" to MARC "413" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."413" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 413 TITRE"
+	when
+        MARC."413" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."413"."t" match ".*"
+		AND NOT MARC."413"."y" match ".*"
+		AND NOT MARC."413"."x" match ".*"
+	then
+		set TEMP"1" to MARC "413" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."413" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 421"
+	when
+        MARC."421" has any "t,o,l,h,i,f,g,c,n,d,x,y"
+		AND MARC."421"."x" match ".*"
+	then
+		set TEMP"1" to MARC "421" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y" wrap subfields
+		set TEMP"2" to MARC."421" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 421 ISBN"
+	when
+        MARC."421" has any "t,o,l,h,i,f,g,c,n,d,x,y"
+		AND MARC."421"."y" match ".*"
+		AND NOT MARC."421"."x" match ".*"
+	then
+		set TEMP"1" to MARC "421" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y" wrap subfields
+		set TEMP"2" to MARC."421" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 421 TITRE"
+	when
+        MARC."421" has any "t,o,l,h,i,f,g,c,n,d,x,y"
+		AND MARC."421"."t" match ".*"
+		AND NOT MARC."421"."y" match ".*"
+		AND NOT MARC."421"."x" match ".*"
+	then
+		set TEMP"1" to MARC "421" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y" wrap subfields
+		set TEMP"2" to MARC."421" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 422"
+	when
+        MARC."422" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."422"."x" match ".*"
+	then
+		set TEMP"1" to MARC "422" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."422" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 422 ISBN"
+	when
+        MARC."422" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."422"."y" match ".*"
+		AND NOT MARC."422"."x" match ".*"
+	then
+		set TEMP"1" to MARC "422" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."422" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 422 TITRE"
+	when
+        MARC."422" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."422"."t" match ".*"
+		AND NOT MARC."422"."y" match ".*"
+		AND NOT MARC."422"."x" match ".*"
+	then
+		set TEMP"1" to MARC "422" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."422" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 423"
+	when
+        MARC."423" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."423"."x" match ".*"
+	then
+		set TEMP"1" to MARC "423" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."423" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 423 ISBN"
+	when
+        MARC."423" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."423"."y" match ".*"
+		AND NOT MARC."423"."x" match ".*"
+	then
+		set TEMP"1" to MARC "423" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."423" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end
+
+rule "Primo VE Display - Ispartof 423 TITRE"
+	when
+        MARC."423" has any "t,o,l,h,i,f,g,c,n,d,x,y,v"
+		AND MARC."423"."t" match ".*"
+		AND NOT MARC."423"."y" match ".*"
+		AND NOT MARC."423"."x" match ".*"
+	then
+		set TEMP"1" to MARC "423" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y,v" wrap subfields
+		set TEMP"2" to MARC."423" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","l"," = ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."ispartof" with TEMP"1"
+end

@@ -1646,3 +1646,81 @@ rule "Primo VE Display - relation 488 TITRE"
         concatenate with delimiter (TEMP"1",TEMP"2","")
 		create pnx."display"."relation" with TEMP"1"
 end
+
+rule "Primo VE Display - relation 464"
+	when
+		MARC."464" has any "t,o,l,h,i,f,g,c,n,d,x,y"
+		AND MARC."464"."x" match ".*"
+	then
+	    set TEMP"1" to MARC "464" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y" wrap subfields
+		set TEMP"2" to MARC."464" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		add prefix (TEMP"1","$$C464_label$$V")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."relation" with TEMP"1"
+end
+
+rule "Primo VE Display - relation 464 ISBN"
+	when
+		MARC."464" has any "t,o,l,h,i,f,g,c,n,d,x,y"
+		AND MARC."464"."y" match ".*"
+        AND NOT MARC."464"."x" match ".*"
+	then
+	    set TEMP"1" to MARC "464" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y" wrap subfields
+		set TEMP"2" to MARC."464" sub without sort "y"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		replace wrapping delimiters (TEMP"1","y"," - ISBN ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		add prefix (TEMP"1","$$C464_label$$V")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."relation" with TEMP"1"
+end
+
+rule "Primo VE Display - relation 464 TITRE"
+	when
+		MARC."464" has any "t,o,l,h,i,f,g,c,n,d,x,y"
+		AND MARC."464"."t" match ".*"
+         AND NOT MARC."464"."y" match ".*"
+          AND NOT MARC."464"."x" match ".*"
+	then
+	    set TEMP"1" to MARC "464" sub without sort "t,o,l,h,i,f,g,c,n,d,x,y" wrap subfields
+		set TEMP"2" to MARC."464" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","c"," - ","")
+		replace wrapping delimiters (TEMP"1","n"," : ","")
+		replace wrapping delimiters (TEMP"1","d",", ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		add prefix (TEMP"1","$$C464_label$$V")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."relation" with TEMP"1"
+end

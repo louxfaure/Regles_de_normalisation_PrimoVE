@@ -1,9 +1,12 @@
 rule "Primo VE - Lds57"
 	when
-		MARC is "123"."b"
+		Latin display MARC."206" has any "a,b,c,d"
 	then
-		set TEMP"1" to MARC."123"."b"
-        replace string by string (TEMP"1","[0-9](?=(?:[0-9]{3})+(?![0-9]))","$0 ")
-        add prefix (TEMP"1","1:")
-		create pnx."display"."lds57" with TEMP"1"
+		hen
+		set TEMP"1" to MARC."206" sub without sort "a,b,c,d" wrap subfields
+		replace wrapping delimiters (TEMP"1","a","","")
+      	replace wrapping delimiters (TEMP"1","b","","")
+      	replace wrapping delimiters (TEMP"1","c"," ; ","")
+		replace wrapping delimiters (TEMP"1","d"," (",")")
+		set pnx."display"."lds57" to TEMP"1"
 end
