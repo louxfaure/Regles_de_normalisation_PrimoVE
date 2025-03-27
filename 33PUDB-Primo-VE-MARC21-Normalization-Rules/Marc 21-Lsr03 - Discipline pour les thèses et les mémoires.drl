@@ -1,0 +1,6 @@
+rule "Primo VE Marc - Lsr03"
+	when
+	    MARC is "502"."b"
+	then
+		set pnx."search"."lsr03" to MARC "502"."b"  
+end
