@@ -1,0 +1,29 @@
+rule "Primo VE - Lds53"
+	when
+		MARC is "205"."a"
+	then
+        set TEMP"1" to MARC."205"."a"
+        add prefix (TEMP"1","[")
+        add suffix (TEMP"1","]")
+		create pnx."display"."lds53" with TEMP"1"
+end
+
+rule "Primo VE - Lds53 206b"
+	when
+		MARC is "206"."b"
+	then
+        set TEMP"1" to MARC."206"."b"
+        add prefix (TEMP"1","[")
+        add suffix (TEMP"1","]")
+		create pnx."display"."lds53" with TEMP"1"
+end
+
+rule "Primo VE - Lds53 206a"
+	when
+		MARC is "206"."a" 
+	then
+        set TEMP"1" to MARC."206"."a"
+        add prefix (TEMP"1","[")
+        add suffix (TEMP"1","]")
+		create pnx."display"."lds53" with TEMP"1"
+end

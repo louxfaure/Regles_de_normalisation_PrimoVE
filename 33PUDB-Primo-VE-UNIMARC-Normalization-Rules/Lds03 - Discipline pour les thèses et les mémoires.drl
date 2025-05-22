@@ -1,0 +1,7 @@
+rule "Primo VE - Lds03"
+	when
+	    MARC is "328"."c" AND 
+		(MARC is "105"."a" AND MARC."105"."a" match "^.{3,8}[m7].*")
+	then
+		set pnx."display"."lds03" to MARC "328"."c"  
+end

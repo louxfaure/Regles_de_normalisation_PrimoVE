@@ -1,0 +1,6 @@
+rule "Primo VE Display - Genre"
+	when
+        MARC "608" has any "a,x,y,z"
+	then
+        create pnx."display"."genre" with MARC."608" sub without sort "a,x,y,z"
+end

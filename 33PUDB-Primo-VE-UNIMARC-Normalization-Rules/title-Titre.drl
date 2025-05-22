@@ -1,0 +1,20 @@
+rule "Primo VE Display title 200"
+    when
+       MARC "200" has any "a,b,c,d,e,h,i"
+    then
+      set TEMP"1" to  MARC."200" sub without sort "a,c,d,e,h,i" wrap subfields
+      replace wrapping delimiters (TEMP"1","a"," ; ","")
+      replace wrapping delimiters (TEMP"1","c",". ","")
+      replace wrapping delimiters (TEMP"1","d"," = ","")
+      replace wrapping delimiters (TEMP"1","e"," : ","")
+      replace wrapping delimiters (TEMP"1","h",". ","")
+      replace wrapping delimiters (TEMP"1","i",". ","")
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      remove leading and trailing spaces (TEMP"1")
+      replace spaces (TEMP"1"," ")
+      remove string (TEMP"1","<<")
+      remove string (TEMP"1",">>")
+      create pnx."display"."title" with TEMP"1"
+end

@@ -1,0 +1,210 @@
+//https://www.babordnum.fr/oai-pmh-repository/request?verb=GetRecord&identifier=oai:www.babordnum.fr:8248&metadataPrefix=oai_dc
+//
+rule "Types de doc : other pour absent"
+when
+    not exist "//*[local-name()='type']"
+then  
+set "other" in "discovery"."resourceType"
+end
+
+rule "Types de doc : autres cas"
+when
+    exist "//*[local-name()='type']"
+then  
+    set TEMP"1" to xpath "//*[local-name()='type']/text()"
+    replace string by string (TEMP"1","\\s","")
+    replace string by string (TEMP"1","Affiche","images")
+    replace string by string (TEMP"1","Documentcartographique","maps")
+    replace string by string (TEMP"1","Gravé","images")
+    replace string by string (TEMP"1","Gravure","images")
+    replace string by string (TEMP"1","Herbier","other")
+    replace string by string (TEMP"1","Imagefixe","images")
+    replace string by string (TEMP"1","Objet","other")
+    replace string by string (TEMP"1","Photographie","images")
+    replace string by string (TEMP"1","Photographies","images")
+    replace string by string (TEMP"1","Text","book")
+    replace string by string (TEMP"1","TextDomainepublic","book")
+    replace string by string (TEMP"1","TextDessin","images")
+    replace string by string (TEMP"1","TextPartitionmusicale","scores")
+    replace string by string (TEMP"1","TextText","book")
+    replace string by string (TEMP"1","texteimprimé","book")
+    replace string by string (TEMP"1","Textemanuscrit","manuscripts")
+    replace string by string (TEMP"1","Textemanuscritreprographié","manuscripts")
+    replace string by string (TEMP"1","Partitionmusicale","scores")
+    set TEMP"1" in "discovery"."resourceType"
+end
+
+rule "Affichage Auteurs Brief Display"
+when
+    exist "//*[local-name()='creator']"
+then
+    copy "//*[local-name()='creator']/text()" to "discovery"."local1"
+end
+
+rule "Affichage Editeur Brief Display"
+when
+    exist "//*[local-name()='publisher']"
+then
+    set TEMP"1" to xpath "//*[local-name()='publisher']/text()"
+    add suffix (TEMP"1"," : ")
+    set TEMP"1" in "discovery"."local2"
+end
+
+rule "Copy title"
+when
+    exist "//*[local-name()='title']"
+then
+    set TEMP"1" to xpath "//*[local-name()='title']/text()"
+    replace string by string (TEMP"1"," &amp; "," & ")
+    set TEMP"1" in "dc"."title"
+end
+
+// rule "Copy creator "
+// Tentative pour nettoyer le rebond de la fonction et la date
+// NE MARCHE PAS
+// when
+//     exist "//*[local-name()='creator']"
+// then
+//     set TEMP"1" to xpath "//*[local-name()='creator']/text()"
+//     set TEMP"2" to xpath "//*[local-name()='creator']/text()"
+//     remove substring using regex (TEMP"2","\\..*$")
+//     //replace string by string (TEMP"2","\..*$","")
+//     add prefix (TEMP"2","$Q")
+//     add prefix (TEMP"2","$")
+//     concatenate with delimiter (TEMP"1",TEMP"2","")
+//     set TEMP"1" in "dc"."creator"
+// end
+
+rule "Copy creator"
+when
+    exist "//*[local-name()='creator']"
+then
+    copy "//*[local-name()='creator']/text()" to "dc"."creator"
+end
+
+rule "Copy contributor"
+when
+    exist "//*[local-name()='contributor']"
+then
+    copy "//*[local-name()='contributor']/text()" to "dc"."contributor"
+end
+
+rule "Copy description"
+when
+    exist "//*[local-name()='description']"
+then
+    set TEMP"1" to xpath "//*[local-name()='description']/text()"
+    replace string by string (TEMP"1","&lt;","<")
+    replace string by string (TEMP"1","&gt;",">")
+    set TEMP"1" in "dc"."description"
+end
+
+rule "Copy publisher"
+when
+    exist "//*[local-name()='publisher']"
+then
+    copy "//*[local-name()='publisher']/text()" to "dc"."publisher"
+end
+
+rule "Copy subject that not starts with /dk/"
+when
+    exist "//*[local-name()='subject']"
+then
+    copy "//*[local-name()='subject']/text()" to "dc"."subject"
+end
+
+rule "Copy date"
+when
+    exist "//*[local-name()='date']"
+then
+    copy "//*[local-name()='date']/text()" to "dc"."date"
+end
+
+rule "Copy language"
+when
+    exist "//*[local-name()='language']"
+then
+    copy "//*[local-name()='language']/text()" to "dc"."language"
+end
+
+
+rule "Copy coverage"
+when
+    exist "//*[local-name()='coverage']"
+then
+    copy "//*[local-name()='coverage']/text()" to "dc"."coverage"
+end
+
+rule "Copy relation"
+when
+    exist "//*[local-name()='relation']"
+then
+    copy "//*[local-name()='relation'][(starts-with(.,'https'))]/text()" to "dc"."relation"
+end
+
+rule "Copy rights"
+when
+    exist "//*[local-name()='rights']"
+then
+    copy "//*[local-name()='rights']/text()" to "dc"."rights"
+end
+
+rule "Copy source to identifier PPN Balises html interprétées"
+when
+    exist "//*[local-name()='source']//*[local-name()='a'][contains(@href, 'sudoc')]"
+then
+    set TEMP"1" to xpath "//*[local-name()='source']//*[local-name()='a'][contains(@href, 'sudoc')]/text()"
+    add prefix (TEMP"1","Identifiant du Sudoc : ")
+    set TEMP"1" in "dc"."identifier"
+end
+
+rule "Copy source to identifier PPN Balises html non interprétées"
+when
+    exist "//*[local-name()='source'][contains(., 'sudoc')]"
+then
+    set TEMP"1" to xpath "//*[local-name()='source'][contains(., 'sudoc')]/text()"
+    remove substring using regex (TEMP"1","^.*https*://www.sudoc.fr/")
+    remove substring using regex (TEMP"1","\".*$")
+    add prefix (TEMP"1","Identifiant du Sudoc : ")
+    set TEMP"1" in "dc"."identifier"
+end
+
+
+rule "Copy identifier Cote du document original "
+when
+    exist "//*[local-name()='identifier']"
+then
+    set TEMP"1" to xpath "//*[local-name()='identifier'][(starts-with(.,'Université'))]/text()"
+    add prefix (TEMP"1","Cote du document original : ")
+    set TEMP"1" in "dc"."identifier"
+end
+
+
+rule "Copy identifier URI "
+when
+    exist "//*[local-name()='identifier']"
+then
+    set TEMP"1" to xpath "//*[local-name()='identifier'][(starts-with(.,'http'))]/text()"
+    add prefix (TEMP"1","URI : ")
+    set TEMP"1" in "dc"."identifier"
+end
+
+rule "PPN en clef de fusion Balises html interprétées"
+when
+    exist "//*[local-name()='source']//*[local-name()='a'][contains(@href, 'sudoc')]"
+then
+    set TEMP"1" to xpath "//*[local-name()='source']//*[local-name()='a'][contains(@href, 'sudoc')]/text()"
+    add prefix (TEMP"1","(PPN)")
+    set TEMP"1" in "discovery"."local3"
+end
+
+rule "PPN en clef de fusion Balises html non interprétées"
+when
+    exist "//*[local-name()='source'][contains(., 'sudoc')]"
+then
+    set TEMP"1" to xpath "//*[local-name()='source'][contains(., 'sudoc')]/text()"
+    remove substring using regex (TEMP"1","^.*https*://www.sudoc.fr/")
+    remove substring using regex (TEMP"1","\".*$")
+    add prefix (TEMP"1","(PPN)")
+    set TEMP"1" in "discovery"."local3"
+end

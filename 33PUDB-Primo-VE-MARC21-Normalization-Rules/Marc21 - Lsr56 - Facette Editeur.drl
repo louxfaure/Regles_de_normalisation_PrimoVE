@@ -1,0 +1,18 @@
+rule "Primo VE Marc - Lsr56"
+	when
+		MARC is "260"."b"
+	then
+		set TEMP"1" to MARC."260"."b"
+		remove leading and trailing spaces (TEMP"1")
+		remove substring using regex (TEMP"1","^(/|:|;|=|,)+")
+		remove leading and trailing spaces (TEMP"1")
+		replace spaces (TEMP"1"," ")
+	    remove string (TEMP"1","<<")
+        remove string (TEMP"1",">>")
+        remove string (TEMP"1","\\(")
+        remove string (TEMP"1","\\)")
+        remove string (TEMP"1","\\[")
+        remove string (TEMP"1","\\]")
+        remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		create pnx."search"."lsr56" with TEMP"1"
+end

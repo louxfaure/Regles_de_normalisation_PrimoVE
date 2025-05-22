@@ -1,0 +1,131 @@
+
+rule "Primo VE Display - Subject"
+	when
+		MARC."600" has any "a,b,c,d,f,g,x,y,z"
+	then
+		//[Nom] [Chiffes Romain] , [Prénom]
+		set TEMP"1" to MARC."600" sub without sort "a,d,b" wrap subfields
+        replace wrapping delimiters (TEMP"1","a","","")
+      	replace wrapping delimiters (TEMP"1","d"," ","")
+      	replace wrapping delimiters (TEMP"1","b",", ","")
+        //  ([Forme dév des initiales du prénom])
+        set TEMP"2" to MARC."600" sub without sort "g"
+		add prefix (TEMP"2","(")
+		add suffix (TEMP"2",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+		// ([Qualif. autres que dates], [Dates])
+        set TEMP"3" to MARC."600" sub without sorting "c,f" delimited by ", "
+		add prefix (TEMP"3","(")
+		add suffix (TEMP"3",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3"," ")
+        // ([Subd. Sujet], [Subd. géo], [Subd. chrono])
+		set TEMP"4" to MARC."600" sub without sort "x,y,z" wrap subfields 
+		replace wrapping delimiters (TEMP"4","x"," -- ","")
+		replace wrapping delimiters (TEMP"4","y"," -- ","")
+		replace wrapping delimiters (TEMP"4","z"," -- ","")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4"," ")
+ 	
+		// Gestion multilingue [A creuser]
+		set TEMP"5" to multilingual by "600" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"5","")
+
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 601"
+	when
+		MARC."601" has any "a-z"
+	then
+		set TEMP"1" to MARC."601" subfields "a-z" delimited by " -- " remove substring using regex "\\.+$"
+		set TEMP"2" to multilingual by "601" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 602"
+	when
+		MARC."602" has any "a,f,x,y,z"
+	then
+		set TEMP"1" to MARC."602" sub without sort "a,f,x,y,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a","","")
+		replace wrapping delimiters (TEMP"1","f"," (",") ")
+		replace wrapping delimiters (TEMP"1","x"," -- ","")
+		replace wrapping delimiters (TEMP"1","y"," -- ","")
+		replace wrapping delimiters (TEMP"1","z"," -- ","")
+		set TEMP"2" to multilingual by "602" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 604"
+	when
+		MARC."604" has any "a,t,x,y,z"
+	then
+		set TEMP"1" to MARC."604" subfields "a,t,x,y,z" delimited by " -- " remove substring using regex "\\.+$"
+		set TEMP"2" to multilingual by "604" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 605"
+	when
+		MARC."605" has any "a,h,i,k,m,n,x,y,z"
+	then
+		set TEMP"1" to MARC."605" sub without sort "a,h,i,k,m,n,x,y,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a","","")
+		replace wrapping delimiters (TEMP"1","h"," -- ","")
+		replace wrapping delimiters (TEMP"1","i"," -- ","")
+		replace wrapping delimiters (TEMP"1","k"," -- ","")
+		replace wrapping delimiters (TEMP"1","m"," (",") ")
+		replace wrapping delimiters (TEMP"1","n"," -- ","")
+		replace wrapping delimiters (TEMP"1","x"," -- ","")
+		replace wrapping delimiters (TEMP"1","y"," -- ","")
+		replace wrapping delimiters (TEMP"1","z"," -- ","")
+		set TEMP"2" to multilingual by "605" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 606"
+	when
+		MARC."606" has any "a,x,y,z"
+	then
+	    set TEMP"1" to MARC."606" subfields "a,x,y,z" delimited by " -- " remove substring using regex "\\.+$"
+		set TEMP"2" to multilingual by "606" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 607"
+	when
+		MARC."607" has any "a,x,y,z"
+	then
+	    set TEMP"1" to MARC."607" subfields "a,x,y,z" delimited by " -- " remove substring using regex "\\.+$"
+		set TEMP"2" to multilingual by "607" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 615"
+	when
+		MARC."615" has any "a"
+	then
+	    set TEMP"1" to multilingual by "615" "Subject" "display"
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE Display - Subject 616"
+	when
+		MARC."616" has any "a,c,f,x,y,z"
+	then
+		set TEMP"1" to MARC."616" sub without sort "a,c,f,x,y,z" wrap subfields
+		replace wrapping delimiters (TEMP"1","a","","")
+		replace wrapping delimiters (TEMP"1","c"," -- ","")
+		replace wrapping delimiters (TEMP"1","f"," (",") ")
+		replace wrapping delimiters (TEMP"1","x"," -- ","")
+		replace wrapping delimiters (TEMP"1","y"," -- ","")
+		replace wrapping delimiters (TEMP"1","z"," -- ","")
+		set TEMP"2" to multilingual by "616" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"2","")
+        create pnx."display"."subject" with TEMP"1"
+end

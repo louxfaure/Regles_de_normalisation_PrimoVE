@@ -1,0 +1,8 @@
+rule "Primo VE Display - Ispartof"
+// Règle pour ne pas produire le champ.)
+		when
+          MARC is "999"."a"
+          AND MARC."999"."a" match "Wallace m'a tuer*"
+	then
+        create pnx."display"."ispartof" with MARC."999"."a"
+end

@@ -1,0 +1,366 @@
+// Règles de normalisation pour l'intégration des Mémoires Dumas dans Primo VE UB.
+// Exclu les thèses d'exercice de médecine, d'odontologie et de pharmacie selun le nom du fichier dans l'élément <identifier>.
+// Les fichiers des thèses numérisés sont nommés ainsi
+// - Med_generale_202X_Auteur
+// - Med_spé_202X_Auteur
+// - Pharmacie_202X_Auteur
+// - Odontologie_202X_Auteur
+// Le filtre est basé sur le débu du nom du fichier (/med, /odonto, /pharma) afin de traiter les problèmes de nommage
+rule "Type de document"
+when
+    not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+  set "dissertations" in "discovery"."resourceType"
+end
+
+rule "Affichage Auteurs Brief Display"
+when
+    exist "//*[local-name()='creator']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='creator']/text()" to "discovery"."local1"
+end
+
+//Produit une note de mémoire à parir du nom de fichier (Manque shs, DSPEG, ST  et ISVV) 
+ rule "Affichage Note mémoire Brief Display ligne 3 :Certificat de capacité d'orthophoniste"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/orth_')]"
+then
+    set "Mémoire - Certificat de capacité d'orthophoniste - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Diplôme d'Etat de psychomotricien"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/psychomot_')]"
+then
+    set "Mémoire - Diplôme d'Etat de psychomotricien - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Diplôme d'Etat de sages-femmes"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/sf_')]"
+then
+    set "Mémoire - Diplôme d'Etat de sages-femmes - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 1 Santé publique"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m1spead_')]"
+then
+    set "Mémoire - Master 1 Santé publique - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Epidémiologie (EPI)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2epi_')]"
+then
+    set "Mémoire - Master 2 Epidémiologie (EPI) - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Promotion de la santé (PROMS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2proms_')]"
+then
+    set "Mémoire - Master 2 Promotion de la santé (PROMS) - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Système d'information et technologies informatiques pour la santé (SITIS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2sitis_')]"
+then
+    set "Mémoire - Master 2 Système d'information et technologies informatiques pour la santé (SITIS) - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Santé Internationale (SI)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2si_')]"
+then
+    set "Mémoire - Master 2 Santé Internationale (SI) - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Public Health Data Science (PHDS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2phds_')]"
+then
+    set "Mémoire - Master 2 Public Health Data Science (PHDS) - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Biostatistique (BIOSTAT)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2_biostat_')]"
+then
+    set "Mémoire - Master 2 Biostatistique (BIOSTAT) - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Cadre de santé manager (CSM)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2csm_')]"
+then
+    set "Mémoire - Master 2 Cadre de santé manager (CSM) - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Master 2 Management des Organisations Médicales et Médico-sociales (MOMMS) "
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2momms_')]"
+then
+    set "Mémoire - Master 2 Management des Organisations Médicales et Médico-sociales (MOMMS)  - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+ rule "Affichage Note mémoire Brief Display ligne 3 :Diplôme universitaire de pédagogie des sciences de la santé"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/du_pedagogi_')]"
+then
+    set "Mémoire - Diplôme universitaire de pédagogie des sciences de la santé - Université de Bordeaux  -" in "discovery"."local2"
+end
+
+rule "Affichage Note mémoire Brief Display ligne 3 : Autres cas non renseignés"
+when
+    not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'orth_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/psychomot_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/sf_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m1spead_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2epi_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2proms_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2sitis_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2si_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2phds_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2_biostat_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2csm_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2momms_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/du_pedagogi_')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    set "Mémoire Université de Bordeaux  -" in "discovery"."local2"
+end
+// Fin note de mémoire
+
+rule "Copy title fr"
+when
+    exist "//*[local-name()='title'][@xml:lang='fr']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='title'][@xml:lang='fr']/text()" to "dc"."title"
+end
+
+rule "Copy title"
+// Si pas de titre en français, on prend le premier titre fisponible 
+when
+    exist "//*[local-name()='title']"
+    AND not exist "//*[local-name()='title'][@xml:lang='fr']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='title'][1]/text()" to "dc"."title"
+end
+
+rule "Copy creator"
+when
+    exist "//*[local-name()='creator']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='creator']/text()" to "dc"."creator"
+end
+
+rule "Copy contributor"
+when
+    exist "//*[local-name()='contributor']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='contributor']/text()" to "dc"."contributor"
+end
+
+rule "Copy description"
+when
+    exist "//*[local-name()='description']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='description']/text()" to "dc"."description"
+end
+
+rule "Copy publisher"
+when
+    exist "//*[local-name()='publisher']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='publisher']/text()" to "dc"."publisher"
+end
+
+rule "Copy subject"
+when
+    exist "//*[local-name()='subject']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='subject']/text()" to "dc"."subject"
+end
+
+rule "Copy date"
+// Date au format AAAA
+when
+    exist "//*[local-name()='date']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "substring(//*[local-name()='date']/text(),0,5)" to "dc"."date"
+end
+
+rule "Copy language"
+when
+    exist "//*[local-name()='language']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='language']/text()" to "dc"."language"
+end
+
+rule "Copy rights"
+when
+    exist "//*[local-name()='rights']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='rights']/text()" to "dc"."rights"
+end
+
+rule "Copy Indentifier"
+when
+    exist "//*[local-name()='identifier']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='identifier']/text()" to "dc"."identifier"
+end
+
+rule "Copy source"
+when
+    exist "//*[local-name()='source']"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    copy "//*[local-name()='source']/text()" to "dc"."source"
+end
+
+rule "Mention Open access"
+when
+    not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/med')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/odonto')]"
+    AND not exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/pharma')]"
+then
+    set "Unrestricted online access" in "dc"."accessRights"
+    set "Unrestricted online access" in "dc"."rights"
+end
+
+///Produit un index et une facette formation 
+ rule "Index et facette formation :Certificat de capacité d'orthophoniste"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/orth_')]"
+then
+    set "Certificat de capacité d'orthophoniste" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Diplôme d'Etat de psychomotricien"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/psychomot_')]"
+then
+    set "Diplôme d'Etat de psychomotricien" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Diplôme d'Etat de sages-femmes"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/sf_')]"
+then
+    set "Diplôme d'Etat de sages-femmes" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 1 Santé publique"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m1spead_')]"
+then
+    set "Master 1 Santé publique" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Epidémiologie (EPI)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2epi_')]"
+then
+    set "Master 2 Epidémiologie (EPI)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Promotion de la santé (PROMS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2proms_')]"
+then
+    set "Master 2 Promotion de la santé (PROMS)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Système d'information et technologies informatiques pour la santé (SITIS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2sitis_')]"
+then
+    set "Master 2 Système d'information et technologies informatiques pour la santé (SITIS)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Santé Internationale (SI)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2si_')]"
+then
+    set "Master 2 Santé Internationale (SI)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Public Health Data Science (PHDS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2phds_')]"
+then
+    set "Master 2 Public Health Data Science (PHDS)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Biostatistique (BIOSTAT)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2_biostat_')]"
+then
+    set "Master 2 Biostatistique (BIOSTAT)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Cadre de santé manager (CSM)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2csm_')]"
+then
+    set "Master 2 Cadre de santé manager (CSM)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Management des Organisations Médicales et Médico-sociales (MOMMS) "
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2momms_')]"
+then
+    set "Master 2 Management des Organisations Médicales et Médico-sociales (MOMMS) " in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Diplôme universitaire de pédagogie des sciences de la santé"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/du_pedagogi_')]"
+then
+    set "Diplôme universitaire de pédagogie des sciences de la santé" in "discovery"."local3"
+end

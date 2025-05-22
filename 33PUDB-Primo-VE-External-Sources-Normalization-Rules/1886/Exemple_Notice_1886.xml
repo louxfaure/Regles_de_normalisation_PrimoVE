@@ -1,0 +1,30 @@
+<record>
+    <header>
+        <identifier>oai:u-bordeaux-montaigne.fr:33573</identifier>
+        <datestamp>2025-02-10T15:26:31Z</datestamp>
+        <setSpec>435259</setSpec>
+    </header>
+    <metadata>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+            <dc:title>Les Anglais en Guyenne : l'administration anglaise et le mouvement communal
+                dans le Bordelais</dc:title>
+            <dc:creator>Brissaud, Désiré 1822-1889</dc:creator>
+            <dc:publisher>Paris : J. B. Dumoulin</dc:publisher>
+            <dc:date>1875</dc:date>
+            <dc:type>1886:Livre</dc:type>
+            <dc:format>1 vol. (VIII-303 p.) ; 23 cm</dc:format>
+            <dc:identifier>IL250014</dc:identifier>
+            <dc:identifier>10.34847/nkl.901eh8o7</dc:identifier>
+            <dc:identifier>IL250014</dc:identifier>
+            <dc:relation>
+                vignette :
+                https://1886.u-bordeaux-montaigne.fr/files/medium/b653f2125f5a27d20f9d725b1bd465de419db294.jpg</dc:relation>
+            <dc:rights>Public Domain mark</dc:rights>
+            <dc:identifier xsi:type="dcterms:URI">
+                https://1886.u-bordeaux-montaigne.fr/s/1886/item/33573</dc:identifier>
+        </oai_dc:dc>
+    </metadata>
+</record>

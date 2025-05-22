@@ -1,0 +1,9 @@
+rule "Primo VE Marc - Lsr55"
+	when
+		MARC is "760"."t"
+	then
+		set TEMP"1" to MARC."760"."t"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."search"."lsr55" with TEMP"1"
+end

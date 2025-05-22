@@ -1,0 +1,188 @@
+// $$Cseries$$Vt : o = l. h, i / f ; g - ISSN x ; v$$Qx$$Qt#
+rule "Primo VE Display - Series 410"
+	when
+		MARC."410" has any "t,o,l,h,i,f,g,v,x" 
+		AND MARC."410"."1" match ".*"
+	then
+	    set TEMP"1" to MARC "410" sub without sort "t,o,l,h,i,f,g,v,x" wrap subfields
+		set TEMP"2" to MARC."410" sub without sort "1"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		remove string (TEMP"2","^001\\(PPN\\)")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 410 ISSN"
+	when
+		MARC."410" has any "t,o,l,h,i,f,g,v" 
+		AND MARC."410"."x" match ".*"
+		AND NOT MARC."410"."1" match ".*"
+	then
+	    set TEMP"1" to MARC "410" sub without sort "t,o,l,h,i,f,g,v,x" wrap subfields
+		set TEMP"2" to MARC."410" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 410 TITRE"
+	when
+		MARC."410" has any "t,o,l,h,i,f,g,v" 
+		AND NOT MARC."410"."x" match ".*"
+		AND NOT MARC."410"."1" match ".*"
+	then
+	    set TEMP"1" to MARC "410" sub without sort "t,o,l,h,i,f,g,v" wrap subfields
+		set TEMP"2" to MARC."410" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end
+rule "Primo VE Display - Series 225 ISSN"
+	when
+		MARC."225" has any "a,d,e,f,h,i,v" 
+		AND MARC."225"."x" match ".*"
+        AND NOT MARC is "410"
+	then
+	    set TEMP"1" to MARC "225" sub without sort "a,d,e,f,h,i,v,x" wrap subfields
+		set TEMP"2" to MARC."225" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","a","","")
+		replace wrapping delimiters (TEMP"1","e"," : ","")
+		replace wrapping delimiters (TEMP"1","d"," = ","")
+		replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","h"," ; ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 225 TITRE"
+	when
+		MARC."225" has any "a,d,e,f,h,i,v" 
+		AND NOT MARC."225"."x" match ".*"
+        AND NOT MARC is "410"
+	then
+	    set TEMP"1" to MARC "225" sub without sort "a,d,e,f,h,i,v" wrap subfields
+		set TEMP"2" to MARC."225" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","a","","")
+		replace wrapping delimiters (TEMP"1","e"," : ","")
+		replace wrapping delimiters (TEMP"1","d"," = ","")
+		replace wrapping delimiters (TEMP"1","i",". ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","h"," ; ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 411"
+	when
+		MARC."411" has any "t,o,l,h,i,f,g,v,x" 
+		AND MARC."411"."1" match ".*"
+	then
+	    set TEMP"1" to MARC "411" sub without sort "t,o,l,h,i,f,g,v,x" wrap subfields
+		set TEMP"2" to MARC."411" sub without sort "1"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		remove string (TEMP"2","^001\\(PPN\\)")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 411 ISSN"
+	when
+		MARC."411" has any "t,o,l,h,i,f,g,v" 
+		AND MARC."411"."x" match ".*"
+		AND NOT MARC."411"."1" match ".*"
+	then
+	    set TEMP"1" to MARC "411" sub without sort "t,o,l,h,i,f,g,v,x" wrap subfields
+		set TEMP"2" to MARC."411" sub without sort "x"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 411 TITRE"
+	when
+		MARC."411" has any "t,o,l,h,i,f,g,v" 
+		AND NOT MARC."411"."x" match ".*"
+		AND NOT MARC."411"."1" match ".*"
+	then
+	    set TEMP"1" to MARC "411" sub without sort "t,o,l,h,i,f,g,v" wrap subfields
+		set TEMP"2" to MARC."411" sub without sort "t"
+		replace wrapping delimiters (TEMP"1","t","","")
+		replace wrapping delimiters (TEMP"1","o"," : ","")
+		replace wrapping delimiters (TEMP"1","h",". ","")
+		replace wrapping delimiters (TEMP"1","i",", ","")
+		replace wrapping delimiters (TEMP"1","f"," / ","")
+		replace wrapping delimiters (TEMP"1","g"," ; ","")
+		replace wrapping delimiters (TEMP"1","x"," - ISSN ","")
+		replace wrapping delimiters (TEMP"1","v"," ; ","")
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		remove string (TEMP"2","<<")
+		remove string (TEMP"2",">>")
+        add prefix (TEMP"2","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"2","")
+		create pnx."display"."series" with TEMP"1"
+end

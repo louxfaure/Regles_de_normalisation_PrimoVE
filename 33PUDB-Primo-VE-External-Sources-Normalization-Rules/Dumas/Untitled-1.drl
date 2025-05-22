@@ -1,0 +1,91 @@
+//Produit un index et une facette formation 
+ rule "Index et facette formation :Certificat de capacité d'orthophoniste"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/orth_')]"
+then
+    set "Certificat de capacité d'orthophoniste" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Diplôme d'Etat de psychomotricien"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/psychomot_')]"
+then
+    set "Diplôme d'Etat de psychomotricien" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Diplôme d'Etat de sages-femmes"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/sf_')]"
+then
+    set "Diplôme d'Etat de sages-femmes" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 1 Santé publique"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m1spead_')]"
+then
+    set "Master 1 Santé publique" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Epidémiologie (EPI)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2epi_')]"
+then
+    set "Master 2 Epidémiologie (EPI)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Promotion de la santé (PROMS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2proms_')]"
+then
+    set "Master 2 Promotion de la santé (PROMS)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Système d'information et technologies informatiques pour la santé (SITIS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2sitis_')]"
+then
+    set "Master 2 Système d'information et technologies informatiques pour la santé (SITIS)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Santé Internationale (SI)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2si_')]"
+then
+    set "Master 2 Santé Internationale (SI)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Public Health Data Science (PHDS)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2phds_')]"
+then
+    set "Master 2 Public Health Data Science (PHDS)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Biostatistique (BIOSTAT)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2_biostat_')]"
+then
+    set "Master 2 Biostatistique (BIOSTAT)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Cadre de santé manager (CSM)"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2csm_')]"
+then
+    set "Master 2 Cadre de santé manager (CSM)" in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Master 2 Management des Organisations Médicales et Médico-sociales (MOMMS) "
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/m2momms_')]"
+then
+    set "Master 2 Management des Organisations Médicales et Médico-sociales (MOMMS) " in "discovery"."local3"
+end
+
+ rule "Index et facette formation :Diplôme universitaire de pédagogie des sciences de la santé"
+when
+    exist "//*[local-name()='identifier'][contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file/du_pedagogi_')]"
+then
+    set "Diplôme universitaire de pédagogie des sciences de la santé" in "discovery"."local3"
+end
