@@ -1,0 +1,23 @@
+rule "Primo VE - Lds01"
+// Brief result ligne 2 : Auteur version ISBD
+	when
+		MARC is "245"."c"
+	then
+		create pnx."display"."lds01" with MARC "245"."c"
+end
+
+rule "Primo VE - Lds01/2"
+// Brief result ligne 2 : Auteur version ISBD
+	when
+		MARC is "100"."a" AND NOT MARC."245" has any "c"
+	then
+        // Prenom Nom
+		set TEMP"1" to MARC."100" sub without sort "a"
+        set TEMP"2" to MARC."100" sub without sort "a"
+        remove substring using regex (TEMP"1","^([^,]*)")
+        remove substring using regex (TEMP"2",",.*$")
+        remove substring using regex (TEMP"1","[,]")
+        concatenate with delimiter (TEMP"1",TEMP"2"," ")
+        set pnx."display"."lds01" to TEMP"1"
+end
+

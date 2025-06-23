@@ -1,0 +1,12 @@
+rule "Primo VE - Title"
+	when
+		MARCRECORD
+	then
+	    set TEMP"1" to prima display title
+        remove string (TEMP"1","<<")
+        remove string (TEMP"1",">>")
+        remove string (TEMP"1","\\(Online\\)")
+        remove substring using regex (TEMP"1","(,|/|:|;|=)+$")
+        remove leading and trailing spaces (TEMP"1")
+		create pnx."display"."title" with TEMP"1"
+end

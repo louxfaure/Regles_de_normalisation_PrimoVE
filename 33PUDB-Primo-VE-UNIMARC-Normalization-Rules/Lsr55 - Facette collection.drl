@@ -1,0 +1,20 @@
+rule "Primo VE UNIMARC - Lsr55"
+	when
+		MARC is "410"."t"
+	then
+				set TEMP"1" to MARC."410"."t"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."search"."lsr55" with TEMP"1"
+end
+
+rule "Primo VE UNIMARC - Lsr55 TITRE collections 225"
+	when
+		MARC is "225"."a"
+		AND NOT MARC is "410"
+	then
+		set TEMP"1" to MARC."225"."a"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."search"."lsr55" with TEMP"1"
+end

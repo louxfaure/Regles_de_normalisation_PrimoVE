@@ -1,0 +1,9 @@
+rule "Primo VE UNIMARC - Lsr57"
+	when
+		MARC is "123"."b"
+	then
+		set TEMP"1" to MARC."123"."b"
+        replace string by string (TEMP"1","[0-9](?=(?:[0-9]{3})+(?![0-9]))","$0 ")
+        add prefix (TEMP"1","1:")
+		create pnx."search"."lsr57" with TEMP"1"
+end

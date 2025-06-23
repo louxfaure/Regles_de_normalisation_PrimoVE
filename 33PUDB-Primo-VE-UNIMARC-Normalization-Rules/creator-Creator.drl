@@ -1,0 +1,295 @@
+rule "Primo VE Display - Creator 700"
+//[Nom] [Chiffes Romains] , [Prénom] ([Forme dév des initiales du prénom]) ([Qualif. autres que dates], [Dates], [Affiliation ou adresse]). [4 premiers codes fonctions séparés par des points] - $$QRebond sur [Nom]  [Chiffes Romain] [Prénom] [Qualificatif]  
+priority 10
+	when
+		Latin display MARC."700" has any "a,b,c,d,f,g,p,4"
+	then
+		//[Nom] [Chiffes Romain] , [Prénom]
+		set TEMP"1" to MARC."700" sub without sort "a,d,b" wrap subfields
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace wrapping delimiters (TEMP"1","a","","")
+      	replace wrapping delimiters (TEMP"1","d"," ","")
+      	replace wrapping delimiters (TEMP"1","b",", ","")
+		//  ([Forme dév des initiales du prénom])
+		set TEMP"2" to MARC."700" sub without sort "g"
+		add prefix (TEMP"2","(")
+		add suffix (TEMP"2",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+		// ([Qualif. autres que dates], [Dates], [Affiliation ou adresse])
+		set TEMP"3" to MARC."700" sub without sorting "c,f,p" delimited by ", "
+		add prefix (TEMP"3","(")
+		add suffix (TEMP"3",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3"," ")
+	
+		//. [Traduction des codes de fonction]
+		set TEMP"4" to MARC."700" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4",". ")
+
+		// $$QRebond sur [Nom]  [Chiffes Romain] [Prénom] [Qualificatif] 
+		set TEMP"6" to MARC."700" sub without sort "a,d, b,c"
+		remove substring using regex (TEMP"6","(/|:|;|=|,)+$")
+		add prefix (TEMP"6","$$Q")
+		remove substring using regex (TEMP"6","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"6","")
+		
+		// Gestion multilingue [A creuser]
+		set TEMP"7" to multilingual by "700" "Creator" "display"
+		concatenate with delimiter (TEMP"1",TEMP"7","")
+
+       set pnx."display"."creator" to TEMP"1"
+end
+
+
+rule "Primo VE Display - Creator 701"
+//[Nom] [Chiffes Romains] , [Prénom] ([Forme dév des initiales du prénom]) ([Qualif. autres que dates], [Dates], [Affiliation ou adresse]). [4 premiers codes fonctions séparés par des points] - Rebond sur [Nom]  [Chiffes Romain] [Prénom] [Qualificatif] 
+priority 20
+	when
+		Latin display MARC."701" has any "a,b,c,d,f,g,p,4"
+	then
+		//[Nom] [Chiffes Romain] , [Prénom]
+		set TEMP"1" to MARC."701" sub without sort "a,b,d" wrap subfields
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace wrapping delimiters (TEMP"1","a","","")
+      	replace wrapping delimiters (TEMP"1","d"," ","")
+      	replace wrapping delimiters (TEMP"1","b",", ","")
+		//  ([Forme dév des initiales du prénom])
+		set TEMP"2" to MARC."701" sub without sort "g"
+		add prefix (TEMP"2","(")
+		add suffix (TEMP"2",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+		// ([Qualif. autres que dates], [Dates], [Affiliation ou adresse])
+		set TEMP"3" to MARC."701" sub without sorting "c,f,p" delimited by ", "
+		add prefix (TEMP"3","(")
+		add suffix (TEMP"3",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3"," ")
+	
+		//. [Traduction des codes de fonction]
+		set TEMP"4" to MARC."701" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4",". ")
+
+		// $$QRebond sur [Nom]  [Chiffes Romain] [Prénom] [Qualificatif] 
+		set TEMP"6" to MARC."701" sub without sort "a,d,b,c"
+		remove substring using regex (TEMP"6","(/|:|;|=|,)+$")
+		add prefix (TEMP"6","$$Q")
+		remove substring using regex (TEMP"6","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"6","")
+		
+		// Gestion multilingue [A creuser]
+		set TEMP"7" to multilingual by "701" "Creator" "display"
+		concatenate with delimiter (TEMP"1",TEMP"7","")
+
+       set pnx."display"."creator" to TEMP"1"
+end
+
+rule "Primo VE Display - Creator 710 ind1=0 Collectivité"
+// [Élément d'entrée]. [Subdivision] ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse]). [4 premiers codes fonctions séparés par des points] - Rebond sur [Élément d'entrée] [Subdivision] [Elément rejeté] [Partie du nom autre que l'élément rejeté]
+priority 30
+	when
+   		 Latin display MARC."710"("0","#") has any "a,b,c, g, h, p, 4"
+	then
+		// [Élément d'entrée]
+		set TEMP"1" to MARC."710" sub without sort "a"
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace string by string (TEMP"1","_"," ")
+		
+		// [Subdivision]
+	   	set TEMP"2" to MARC."710" sub without sort "b"
+       	concatenate with delimiter support empty vals (TEMP"1",TEMP"2",". ")
+		
+		// ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse])
+	   	set TEMP"3" to MARC."710" sub without sorting "c,g,h,p" delimited by ", "
+		add prefix (TEMP"3","(")
+		add suffix (TEMP"3",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3"," ")
+
+		//. [Traduction des codes de fonction]
+		set TEMP"4" to MARC."710" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4",". ")
+		
+		// $$QRebond sur [Élément d'entrée] [Subdivision] [Elément rejeté] [Partie du nom autre que l'élément rejeté]
+		set TEMP"5" to MARC."710" sub without sort "a, b, c, g, h"
+		remove substring using regex (TEMP"5","(/|:|;|=|,)+$")
+		add prefix (TEMP"5","$$Q")
+		remove substring using regex (TEMP"5","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"5","")
+		
+       set TEMP"6" to multilingual by "710" "Creator" "display"
+	   concatenate with delimiter (TEMP"1",TEMP"6","")
+       
+       set pnx."display"."creator" to TEMP"1"
+end
+
+rule "Primo VE Display - Creator 711 ind1=0 Collectivité"
+// [Élément d'entrée]. [Subdivision] ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse]). [4 premiers codes fonctions séparés par des points] - Rebond sur [Élément d'entrée] [Subdivision]
+priority 40
+	when
+   		 Latin display MARC."711"("0","#") has any "a,b,c, g, h, p, 4"
+	then
+		// [Élément d'entrée]
+		set TEMP"1" to MARC."711" sub without sort "a"
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace string by string (TEMP"1","_"," ")
+		
+		// [Subdivision]
+	   	set TEMP"2" to MARC."711" sub without sort "b"
+       	concatenate with delimiter support empty vals (TEMP"1",TEMP"2",". ")
+		
+		// ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse])
+	   	set TEMP"3" to MARC."711" sub without sorting "c,g,h,p" delimited by ", "
+		add prefix (TEMP"3","(")
+		add suffix (TEMP"3",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3"," ")
+
+		//. [Traduction des codes de fonction]
+		set TEMP"4" to MARC."711" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4",". ")
+		
+		// $$QRebond sur [Élément d'entrée] [Subdivision] [Elément rejeté] [Partie du nom autre que l'élément rejeté]
+		set TEMP"5" to MARC."711" sub without sort "a,b,c,g,h"
+		remove substring using regex (TEMP"5","(/|:|;|=|,)+$")
+		add prefix (TEMP"5","$$Q")
+		remove substring using regex (TEMP"5","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"5","")
+		
+       set TEMP"6" to multilingual by "711" "Creator" "display"
+	   concatenate with delimiter (TEMP"1",TEMP"6","")
+       
+       set pnx."display"."creator" to TEMP"1"
+end
+
+rule "Primo VE Display - Creator 710 ind1=1 Congrés"
+// [Élément d'entrée] ([Subdivision] ; [Élément ajouté au nom ou qualif.] ; [N° du congrés] ; [Lieu du congrès] ; [Date du congrès] ; [Élément rejeté] ; [Partie du nom autre que l'élément rejeté] ; [Affiliation ou adresse]) .[Le premier code fonction] - Rebond sur [Élément d'entrée]
+priority 50
+	when
+   		 Latin display MARC."710"("1","#") has any "a,b,c,d,e,f,g,h,p,4"
+	then
+		// [Élément d'entrée]
+		set TEMP"1" to MARC."710" sub without sort "a"
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace string by string (TEMP"1","_"," ")
+		
+		// ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse])
+	   	set TEMP"2" to MARC."710" sub without sorting "b,c,d,e,f,g,h,p" delimited by " ; "
+		add prefix (TEMP"2","(")
+		add suffix (TEMP"2",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+
+		//. [Traduction des codes de fonction]
+		set TEMP"3" to MARC."710" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3",". ")
+		
+		// $$QRebond sur [Élément d'entrée] [Subdivision] [Elément rejeté] [Partie du nom autre que l'élément rejeté]
+		set TEMP"4" to MARC."710" sub without sort "a,b,c,d,g,h"
+		remove substring using regex (TEMP"4","(/|:|;|=|,)+$")
+		add prefix (TEMP"4","$$Q")
+		remove substring using regex (TEMP"4","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4","")
+		
+       set TEMP"5" to multilingual by "710" "Creator" "display"
+	   concatenate with delimiter (TEMP"1",TEMP"5","")
+       
+       set pnx."display"."creator" to TEMP"1"
+end
+
+
+rule "Primo VE Display - Creator 711 ind1=1 Congrés"
+// [Élément d'entrée] ([Subdivision] ; [Élément ajouté au nom ou qualif.] ; [N° du congrés] ; [Lieu du congrès] ; [Date du congrès] ; [Élément rejeté] ; [Partie du nom autre que l'élément rejeté] ; [Affiliation ou adresse]) .[Le premier code fonction] - Rebond sur [Élément d'entrée]
+priority 60
+	when
+   		 Latin display MARC."711"("1","#") has any "a,b,c,d,e,f,g,h,p,4"
+	then
+		// [Élément d'entrée]
+		set TEMP"1" to MARC."711" sub without sort "a"
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace string by string (TEMP"1","_"," ")
+		
+		// ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse])
+	   	set TEMP"2" to MARC."711" sub without sorting "b,c,d,e,f,g,h,p" delimited by " ; "
+		add prefix (TEMP"2","(")
+		add suffix (TEMP"2",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+
+		//. [Traduction des codes de fonction]
+		set TEMP"3" to MARC."711" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3",". ")
+		
+		// $$QRebond sur [Élément d'entrée] [Subdivision] [Elément rejeté] [Partie du nom autre que l'élément rejeté]
+		set TEMP"4" to MARC."711" sub without sort "a,b,c,d,g,h"
+		remove substring using regex (TEMP"4","(/|:|;|=|,)+$")
+		add prefix (TEMP"4","$$Q")
+		remove substring using regex (TEMP"4","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4","")
+		
+       set TEMP"5" to multilingual by "711" "Creator" "display"
+	   concatenate with delimiter (TEMP"1",TEMP"5","")
+       
+       set pnx."display"."creator" to TEMP"1"
+end
+
+rule "Primo VE Display - Creator 720 ind1=1 Nom de famille"
+// [Nom de famille] ([Dates]). [4 premiers codes fonctions séparés par des points] - Rebond sur [Nom de famille]
+priority 70
+	when
+   		 Latin display MARC."720"("1","#") has any "a,f,4"
+	then
+		// [Élément d'entrée]
+		set TEMP"1" to MARC."720" sub without sort "a"
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace string by string (TEMP"1","_"," ")
+		
+		// ([Dates])
+	   	set TEMP"2" to MARC."720" sub without sort "f"
+		add prefix (TEMP"2","(")
+		add suffix (TEMP"2",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+
+		//. [Traduction des codes de fonction]
+		set TEMP"3" to MARC."720" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3",". ")
+		
+		// $$QRebond sur [Élément d'entrée]
+		set TEMP"4" to MARC."720" sub without sort "a"
+		remove substring using regex (TEMP"4","(/|:|;|=|,)+$")
+		add prefix (TEMP"4","$$Q")
+		remove substring using regex (TEMP"4","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4","")
+		
+       set TEMP"5" to multilingual by "720" "Creator" "display"
+	   concatenate with delimiter (TEMP"1",TEMP"5","")
+       
+       set pnx."display"."creator" to TEMP"1"
+end
+
+rule "Primo VE Display - Creator 721 ind1=1 Nom de famille"
+// [Nom de famille] ([Dates]). [4 premiers codes fonctions séparés par des points] - Rebond sur [Nom de famille]
+priority 80
+	when
+   		 Latin display MARC."721"("1","#") has any "a,f,4"
+	then
+		// [Élément d'entrée]
+		set TEMP"1" to MARC."721" sub without sort "a"
+		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+		replace string by string (TEMP"1","_"," ")
+		
+		// ([Dates])
+	   	set TEMP"2" to MARC."721" sub without sort "f"
+		add prefix (TEMP"2","(")
+		add suffix (TEMP"2",")")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"2"," ")
+
+		//. [Traduction des codes de fonction]
+		set TEMP"3" to MARC."721" subfields "4" append translation "4"
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"3",". ")
+		
+		// $$QRebond sur [Élément d'entrée]
+		set TEMP"4" to MARC."721" sub without sort "a"
+		remove substring using regex (TEMP"4","(/|:|;|=|,)+$")
+		add prefix (TEMP"4","$$Q")
+		remove substring using regex (TEMP"4","^$$Q$")
+		concatenate with delimiter support empty vals (TEMP"1",TEMP"4","")
+		
+       set TEMP"5" to multilingual by "721" "Creator" "display"
+	   concatenate with delimiter (TEMP"1",TEMP"5","")
+       
+       set pnx."display"."creator" to TEMP"1"
+end

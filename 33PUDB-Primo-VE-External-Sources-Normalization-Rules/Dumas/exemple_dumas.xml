@@ -1,0 +1,67 @@
+<record>
+  <header>
+    <identifier>oai:HAL:dumas-00994179v1</identifier>
+    <datestamp>2023-07-01</datestamp>
+    <setSpec>type:MEM</setSpec>
+  </header>
+  <metadata xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:tei="http://www.tei-c.org/ns/1.0" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/  http://www.openarchives.org/OAI/2.0/oai_dc.xsd http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd">
+      <dc:publisher>CCSD</dc:publisher>
+      <dc:title xml:lang="fr">Étude de l’effet du porte-greffe (41 B, Rupestris du Lot, 110 R) sur
+        le cépage Mourvèdre</dc:title>
+      <dc:creator>Garcia, Guillaume</dc:creator>
+      <dc:contributor>Université de Bordeaux (UB)</dc:contributor>
+      <dc:contributor>Sabine Guillaumie</dc:contributor>
+      <dc:identifier>dumas-04246450</dc:identifier>
+      <dc:identifier>https://dumas.ccsd.cnrs.fr/dumas-04246450</dc:identifier>
+      <dc:identifier>https://dumas.ccsd.cnrs.fr/dumas-04246450v1/document</dc:identifier>
+      <dc:identifier>https://dumas.ccsd.cnrs.fr/dumas-04246450v1/file/DNO_2023_Garcia.pdf</dc:identifier>
+      <dc:source>https://dumas.ccsd.cnrs.fr/dumas-04246450</dc:source>
+      <dc:source>Sciences du Vivant [q-bio]. 2023</dc:source>
+      <dc:language>fr</dc:language>
+      <dc:subject xml:lang="fr">Vin de Bandol</dc:subject>
+      <dc:subject xml:lang="fr">Mourvèdre</dc:subject>
+      <dc:subject xml:lang="fr">Porte-greffe</dc:subject>
+      <dc:subject xml:lang="fr">Rupestris du Lot</dc:subject>
+      <dc:subject>[SDV]Life Sciences [q-bio]</dc:subject>
+      <dc:type>info:eu-repo/semantics/masterThesis</dc:type>
+      <dc:type>Master thesis</dc:type>
+      <dc:description xml:lang="en">
+        Domaine Tempier, an emblematic family business in the South-East of France, operates 61
+        hectares of vines in “Appellation d’Origine Controlée” Bandol, in order to produce red, rosé
+        and white wines of high quality and recognized internationally and certified Organic
+        Agriculture. An average of 270,000 bottles is produced each year, which makes the wines
+        highly coveted. These wines are produced by blending different grape varieties, the main
+        ones are : Mourvèdre, Grenache and Cinsault for reds and rosés and Ugni blanc, Bourboulenc
+        and Clairette for whites. The analysis of the structure and functioning of the Domaine
+        Tempier shows an excellent mastery of vine and cellar technical itineraries, leading to
+        produce good quality wines, while respecting the environment. But the estate is now facing
+        challenges of climate change. The choice of rootstocks is one of the levers to adapt to it.
+        By playing on the resistance to drought, the precocity and the strength conferred, they
+        allow to maintain the quality and typicity of the wines.
+      </dc:description>
+      <dc:description xml:lang="fr">
+        Le Domaine Tempier, entreprise familiale emblématique du Sud-Est de la France exploite 61 ha
+        de vignes en AOC Bandol, afin de produire des vins rouges, rosés et blancs de grande
+        qualité, reconnus à l’international et labellisés Agriculture Biologique. En moyenne 270 000
+        bouteilles sont produites par an, ce qui rend les vins du domaine très convoités. Ces vins
+        sont produits par l’assemblage de différents cépages, les principaux étant le Mourvèdre, le
+        Grenache et le Cinsault pour les rouges et rosés et l’Ugni blanc, le Bourboulenc et la
+        Clairette pour les blancs. L’analyse de la structure et du fonctionnement du Domaine Tempier
+        montre une excellente maitrise des itinéraires techniques à la vigne comme au chai, dans le
+        but de produire un vin de qualité, tout en étant le plus respectueux possible de
+        l’environnement. Mais le domaine est aujourd’hui confronté aux enjeux du changement
+        climatique. Le choix des porte-greffes est un des leviers permettant de s’y adapter. En
+        jouant sur la résistance à la sécheresse, la précocité et la vigueur conférée, ils
+        permettent de maintenir la qualité et la typicité des vins.
+      </dc:description>
+      <dc:date>2023-04-06</dc:date>
+      <dc:rights>info:eu-repo/semantics/OpenAccess</dc:rights>
+    </oai_dc:dc>
+  </metadata>
+</record>

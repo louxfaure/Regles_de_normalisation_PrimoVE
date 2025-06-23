@@ -1,0 +1,79 @@
+rule "Primo VE UNIMARC - Lsr54"
+	when
+		MARC is "410"."1"
+	then
+		set TEMP"1" to MARC."410"."1"
+		remove string (TEMP"1","^001\\(PPN\\)")
+		create pnx."search"."lsr54" with TEMP"1"
+end
+
+rule "Primo VE UNIMARC - Lsr54 ISSN Collections 410"
+	when
+		MARC is "410"."x"
+	then
+		create pnx."search"."lsr54" with MARC "410"."x"
+
+end
+
+rule "Primo VE UNIMARC - Lsr54 TITRE collections 410"
+	when
+		MARC is "410"."t"
+	then
+		set TEMP"1" to MARC."410"."t"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."search"."lsr54" with TEMP"1"
+end
+
+rule "Primo VE UNIMARC - Lsr54 ISSN Collections 225"
+	when
+		MARC is "225"."x"
+		AND NOT MARC is "410"
+	then
+		create pnx."search"."lsr54" with MARC "225"."x"
+
+end
+
+rule "Primo VE UNIMARC - Lsr54 TITRE collections 225"
+	when
+		MARC is "225"."a"
+		AND NOT MARC is "410"
+	then
+		set TEMP"1" to MARC."225"."a"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."search"."lsr54" with TEMP"1"
+end
+
+rule "Primo VE UNIMARC - Lsr54 ISBN notice"
+	when
+		MARC is "010"."a"
+	then
+		create pnx."search"."lsr54" with MARC "010"."a"
+end
+
+rule "Primo VE UNIMARC - Lsr54 ISSN notice"
+	when
+		MARC is "011"."a"
+	then
+		create pnx."search"."lsr54" with MARC "011"."a"
+end
+
+rule "Primo VE UNIMARC - Lsr54 PPN notice"
+	when
+		MARC is "035"."a" AND MARC."035"."a" match "^\\(PPN\\).*"
+	then
+		set TEMP"1" to MARC."035" sub without sort "a"
+        replace string by string (TEMP"1","\\(PPN\\)","")
+		create pnx."search"."lsr54" with TEMP"1"
+end
+
+rule "Primo VE UNIMARC - Lsr54 titre notice"
+    when
+		MARC is "200"."a"
+	then
+		set TEMP"1" to MARC."200"."a"
+		remove string (TEMP"1","<<")
+		remove string (TEMP"1",">>")
+		create pnx."search"."lsr54" with TEMP"1"
+end

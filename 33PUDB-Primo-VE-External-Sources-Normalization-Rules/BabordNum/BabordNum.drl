@@ -1,0 +1,30 @@
+rule "Types de docs à books"
+    when
+      true
+    then  
+       set "books" in "discovery"."resourceType"
+end
+
+rule "Affichage Auteurs Brief Display"
+  when
+    exist "dc"."creator"
+  then
+    copy "dc"."creator" to "discovery"."local1"
+end
+
+rule "Affichage Editeur Brief Display"
+  when
+    exist "dc"."publisher"
+  then
+    set TEMP"1" to dc value "dc"."publisher"
+    add suffix (TEMP"1"," : ")
+    set "discovery"."local2" to TEMP"1"
+end
+
+rule "PPN dans identifier"
+  when
+    exist "dc"."source"
+  then
+    set "dc"."identifier" to "discovery"."local3"
+end
+

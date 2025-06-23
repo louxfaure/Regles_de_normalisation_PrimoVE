@@ -1,0 +1,6 @@
+rule "Primo VE Display - Complete Edition 205"
+	when
+		MARC is "205"."a"
+	then
+		create pnx."display"."edition" with MARC."205"."a"
+end

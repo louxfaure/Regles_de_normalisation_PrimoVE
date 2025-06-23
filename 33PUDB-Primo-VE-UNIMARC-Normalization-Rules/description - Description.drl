@@ -1,0 +1,273 @@
+rule "Primo VE Display - Description 300"
+	when
+        MARC is "300"."a"
+	then
+        set TEMP"1" to MARC."300" sub without sort "a"
+        add prefix (TEMP"1","$$C300_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 302"
+	when
+        MARC is "302"."a"
+	then
+        set TEMP"1" to MARC."302" sub without sort "a"
+        add prefix (TEMP"1","$$C302_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 303"
+	when
+        MARC is "303"."a"
+	then
+        set TEMP"1" to MARC."303" sub without sort "a"
+        add prefix (TEMP"1","$$C303_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 304"
+	when
+        MARC is "304"."a"
+	then
+        set TEMP"1" to MARC."304" sub without sort "a"
+        add prefix (TEMP"1","$$C304_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 305"
+	when
+        MARC is "305"."a"
+	then
+        set TEMP"1" to MARC."305" sub without sort "a"
+        add prefix (TEMP"1","$$C305_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 306"
+	when
+        MARC is "306"."a"
+	then
+        set TEMP"1" to MARC."306" sub without sort "a"
+        add prefix (TEMP"1","$$C306_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 307"
+	when
+        MARC is "307"."a"
+	then
+        set TEMP"1" to MARC."307" sub without sort "a"
+        add prefix (TEMP"1","$$C307_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 308"
+	when
+        MARC is "308"."a"
+	then
+        set TEMP"1" to MARC."308" sub without sort "a"
+        add prefix (TEMP"1","$$C308_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 310"
+	when
+        MARC is "310"."a"
+	then
+        set TEMP"1" to MARC."310" sub without sort "a"
+        add prefix (TEMP"1","$$C310_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 311"
+	when
+        MARC is "311"."a"
+	then
+        set TEMP"1" to MARC."311" sub without sort "a"
+        add prefix (TEMP"1","$$C311_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 312"
+	when
+        MARC is "312"."a"
+	then
+        set TEMP"1" to MARC."312" sub without sort "a"
+        add prefix (TEMP"1","$$C312_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 313"
+	when
+        MARC is "313"."a"
+	then
+        set TEMP"1" to MARC."313" sub without sort "a"
+        add prefix (TEMP"1","$$C313_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 314"
+	when
+        MARC is "314"."a"
+	then
+        set TEMP"1" to MARC."314" sub without sort "a"
+        add prefix (TEMP"1","$$C314_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 315"
+	when
+        MARC is "315"."a"
+	then
+        set TEMP"1" to MARC."315" sub without sort "a"
+        add prefix (TEMP"1","$$C315_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 316"
+	when
+        MARC is "316"."a"
+	then
+        set TEMP"1" to MARC."316" sub without sort "a"
+        add prefix (TEMP"1","$$C316_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 317"
+	when
+        MARC is "317"."a"
+	then
+        set TEMP"1" to MARC."317" sub without sort "a"
+        add prefix (TEMP"1","$$C317_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 320"
+	when
+        MARC is "320"."a"
+	then
+        set TEMP"1" to MARC."320" sub without sort "a"
+        add prefix (TEMP"1","$$C320_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 321"
+	when
+        MARC is "321"."a"
+	then
+        set TEMP"1" to MARC."321" sub without sort "a"
+        add prefix (TEMP"1","$$C321_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 322"
+	when
+        MARC is "322"."a"
+	then
+        set TEMP"1" to MARC."322" sub without sort "a"
+        add prefix (TEMP"1","$$C322_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 323"
+	when
+        MARC is "323"."a"
+	then
+        set TEMP"1" to MARC."323" sub without sort "a"
+        add prefix (TEMP"1","$$C323_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 324"
+	when
+        MARC is "324"."a"
+	then
+        set TEMP"1" to MARC."324" sub without sort "a"
+        add prefix (TEMP"1","$$C324_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 325"
+	when
+        MARC is "325"."a"
+	then
+        set TEMP"1" to MARC."325" sub without sort "a"
+        add prefix (TEMP"1","$$C325_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 326"
+	when
+        MARC is "326"."a"
+	then
+        set TEMP"1" to MARC."326" sub without sort "a"
+        add prefix (TEMP"1","$$C326_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 332"
+	when
+        MARC is "332"."a"
+	then
+        set TEMP"1" to MARC."332" sub without sort "a"
+        add prefix (TEMP"1","$$C332_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 333"
+	when
+        MARC is "333"."a"
+	then
+        set TEMP"1" to MARC."333" sub without sort "a"
+        add prefix (TEMP"1","$$C333_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 334"
+	when
+        MARC."334" has any "a,b,c,d"
+	then
+        set TEMP"1" to MARC."334" sub without sort "a,b,c,d" wrap subfields
+        replace wrapping delimiters (TEMP"1","a","","")  
+        replace wrapping delimiters (TEMP"1","b"," - ","") 
+        replace wrapping delimiters (TEMP"1","c"," - ","") 
+        replace wrapping delimiters (TEMP"1","d"," - ","") 
+        add prefix (TEMP"1","$$C334_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 336"
+	when
+        MARC is "336"."a"
+	then
+        set TEMP"1" to MARC."336" sub without sort "a"
+        add prefix (TEMP"1","$$C336_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 337"
+	when
+        MARC is "337"."a"
+	then
+        set TEMP"1" to MARC."337" sub without sort "a"
+        add prefix (TEMP"1","$$C337_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 345"
+	when
+        MARC is "345"."a"
+	then
+        set TEMP"1" to MARC."345" sub without sort "a"
+        add prefix (TEMP"1","$$C345_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 371"
+	when
+        MARC is "371"."a"
+	then
+        set TEMP"1" to MARC."371" sub without sort "a"
+        add prefix (TEMP"1","$$C371_label$$V")
+        create pnx."display"."description" with TEMP"1"
+end
