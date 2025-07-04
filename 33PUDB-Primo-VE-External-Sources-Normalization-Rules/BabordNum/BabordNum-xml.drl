@@ -106,7 +106,7 @@ then
     copy "//*[local-name()='publisher']/text()" to "dc"."publisher"
 end
 
-rule "Copy subject that not starts with /dk/"
+rule "Copy subject"
 when
     exist "//*[local-name()='subject']"
 then
@@ -149,7 +149,7 @@ then
     copy "//*[local-name()='rights']/text()" to "dc"."rights"
 end
 
-rule "Copy source to identifier PPN Balises html interprétées"
+rule "Copy source to identifier : cas du PPN avec Balises html interprétées"
 when
     exist "//*[local-name()='source']//*[local-name()='a'][contains(@href, 'sudoc')]"
 then
@@ -158,7 +158,7 @@ then
     set TEMP"1" in "dc"."identifier"
 end
 
-rule "Copy source to identifier PPN Balises html non interprétées"
+rule "Copy source to identifier  : cas du PPN avec PPN Balises html non interprétées"
 when
     exist "//*[local-name()='source'][contains(., 'sudoc')]"
 then
