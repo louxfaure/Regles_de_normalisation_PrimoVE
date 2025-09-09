@@ -123,7 +123,7 @@ rule "Primo VE Display - Creator 711 ind1=0 Collectivité"
 // [Élément d'entrée]. [Subdivision] ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse]). [4 premiers codes fonctions séparés par des points] - Rebond sur [Élément d'entrée] [Subdivision]
 priority 40
 	when
-   		 Latin display MARC."711"("0","#") has any "a,b,c, g, h, p, 4"
+   		 Latin display MARC."711"("0","#") has any "a,b,c,g,h,p,4"
 	then
 		// [Élément d'entrée]
 		set TEMP"1" to MARC."711" sub without sort "a"
