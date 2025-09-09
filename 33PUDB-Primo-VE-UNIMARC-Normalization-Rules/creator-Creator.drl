@@ -26,7 +26,7 @@ priority 10
 		concatenate with delimiter support empty vals (TEMP"1",TEMP"4",". ")
 
 		// $$QRebond sur [Nom]  [Chiffes Romain] [Prénom] [Qualificatif] 
-		set TEMP"6" to MARC."700" sub without sort "a,d, b,c"
+		set TEMP"6" to MARC."700" sub without sort "a,d,b,c"
 		remove substring using regex (TEMP"6","(/|:|;|=|,)+$")
 		add prefix (TEMP"6","$$Q")
 		remove substring using regex (TEMP"6","^$$Q$")
@@ -85,7 +85,7 @@ rule "Primo VE Display - Creator 710 ind1=0 Collectivité"
 // [Élément d'entrée]. [Subdivision] ([Élément ajouté au nom ou qualif.], [Élément rejeté], [Partie du nom autre que l'élément rejeté], [Affiliation ou adresse]). [4 premiers codes fonctions séparés par des points] - Rebond sur [Élément d'entrée] [Subdivision] [Elément rejeté] [Partie du nom autre que l'élément rejeté]
 priority 30
 	when
-   		 Latin display MARC."710"("0","#") has any "a,b,c, g, h, p, 4"
+   		 Latin display MARC."710"("0","#") has any "a,b,c,g,h,p,4"
 	then
 		// [Élément d'entrée]
 		set TEMP"1" to MARC."710" sub without sort "a"
@@ -107,7 +107,7 @@ priority 30
 		concatenate with delimiter support empty vals (TEMP"1",TEMP"4",". ")
 		
 		// $$QRebond sur [Élément d'entrée] [Subdivision] [Elément rejeté] [Partie du nom autre que l'élément rejeté]
-		set TEMP"5" to MARC."710" sub without sort "a, b, c, g, h"
+		set TEMP"5" to MARC."710" sub without sort "a,b,c,g,h"
 		remove substring using regex (TEMP"5","(/|:|;|=|,)+$")
 		add prefix (TEMP"5","$$Q")
 		remove substring using regex (TEMP"5","^$$Q$")
