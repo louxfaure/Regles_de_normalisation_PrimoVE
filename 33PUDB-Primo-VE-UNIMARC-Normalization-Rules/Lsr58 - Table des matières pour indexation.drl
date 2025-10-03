@@ -1,0 +1,7 @@
+rule "Primo VE UNIMARC - Lsr58"
+       when
+		MARC."359" has any "b,c,d,e,f,g,h,i,p,v"
+	then
+		set TEMP"1" to MARC."359" sub without sort "b,c,d,e,f,g,h,i,p,v" 
+		create pnx."search"."lsr58" with TEMP"1"
+end

@@ -8,7 +8,7 @@ priority 10
 		set TEMP"1" to MARC."700" sub without sort "a,d,b" wrap subfields
 		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
 		replace wrapping delimiters (TEMP"1","a","","")
-      	replace wrapping delimiters (TEMP"1","d"," ","")
+      	replace wrapping delimiters (TEMP"1","d","","")
       	replace wrapping delimiters (TEMP"1","b",", ","")
 		//  ([Forme dév des initiales du prénom])
 		set TEMP"2" to MARC."700" sub without sort "g"
@@ -50,7 +50,7 @@ priority 20
 		set TEMP"1" to MARC."701" sub without sort "a,b,d" wrap subfields
 		remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
 		replace wrapping delimiters (TEMP"1","a","","")
-      	replace wrapping delimiters (TEMP"1","d"," ","")
+      	replace wrapping delimiters (TEMP"1","d","","")
       	replace wrapping delimiters (TEMP"1","b",", ","")
 		//  ([Forme dév des initiales du prénom])
 		set TEMP"2" to MARC."701" sub without sort "g"
