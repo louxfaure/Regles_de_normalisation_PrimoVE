@@ -36,7 +36,7 @@ priority 10
 		set TEMP"7" to multilingual by "700" "Creator" "display"
 		concatenate with delimiter (TEMP"1",TEMP"7","")
 
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end
 
 
@@ -78,7 +78,7 @@ priority 20
 		set TEMP"7" to multilingual by "701" "Creator" "display"
 		concatenate with delimiter (TEMP"1",TEMP"7","")
 
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end
 
 rule "Primo VE Display - Creator 710 ind1=0 Collectivité"
@@ -116,7 +116,7 @@ priority 30
        set TEMP"6" to multilingual by "710" "Creator" "display"
 	   concatenate with delimiter (TEMP"1",TEMP"6","")
        
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end
 
 rule "Primo VE Display - Creator 711 ind1=0 Collectivité"
@@ -154,7 +154,7 @@ priority 40
        set TEMP"6" to multilingual by "711" "Creator" "display"
 	   concatenate with delimiter (TEMP"1",TEMP"6","")
        
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end
 
 rule "Primo VE Display - Creator 710 ind1=1 Congrés"
@@ -188,7 +188,7 @@ priority 50
        set TEMP"5" to multilingual by "710" "Creator" "display"
 	   concatenate with delimiter (TEMP"1",TEMP"5","")
        
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end
 
 
@@ -223,7 +223,7 @@ priority 60
        set TEMP"5" to multilingual by "711" "Creator" "display"
 	   concatenate with delimiter (TEMP"1",TEMP"5","")
        
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end
 
 rule "Primo VE Display - Creator 720 ind1=1 Nom de famille"
@@ -257,7 +257,7 @@ priority 70
        set TEMP"5" to multilingual by "720" "Creator" "display"
 	   concatenate with delimiter (TEMP"1",TEMP"5","")
        
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end
 
 rule "Primo VE Display - Creator 721 ind1=1 Nom de famille"
@@ -291,5 +291,5 @@ priority 80
        set TEMP"5" to multilingual by "721" "Creator" "display"
 	   concatenate with delimiter (TEMP"1",TEMP"5","")
        
-       set pnx."display"."creator" to TEMP"1"
+        create pnx."display"."creator" with  TEMP"1"
 end

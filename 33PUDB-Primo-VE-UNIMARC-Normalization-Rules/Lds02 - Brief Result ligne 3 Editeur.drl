@@ -74,3 +74,16 @@ priority 50
 		add suffix (TEMP"1"," - ")
 		set pnx."display"."lds02" to TEMP"1"  
 end
+
+rule "Primo VE - Lds02/6 note de thèse pour les reproductions"
+priority 40
+// Editeur pour affichage dans la brief result
+	when
+		(MARC is "105"."a" AND MARC."105"."a" match "^.{3,8}v.*")
+    	AND (MARC is "328"."e" AND MARC."328"."e" match "^.*[Bb]ordeaux (3|Montaigne).*")
+		AND MARC.control."LDR"(6-7) matches "l"
+	then
+		set TEMP"1" to MARC "328" subfields "b,c,e" delimited by " - " remove substring using regex "(/|:|;|=|,)+$"
+		add suffix (TEMP"1"," - ")
+		set pnx."display"."lds02" to TEMP"1"  
+end
